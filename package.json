@@ -1,0 +1,15 @@
+{
+	"name": "rangoo-delivery",
+	"scripts": {
+		"dev": "turbo dev",
+		"build": "turbo build",
+		"format": "biome format --write .",
+		"check": "biome check --apply"
+	},
+	"packageManager": "pnpm@11.1.2",
+	"type": "module",
+	"devDependencies": {
+		"@biomejs/biome": "2.5.2",
+		"turbo": "^2.10.2"
+	}
+}
