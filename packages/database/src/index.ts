@@ -1,0 +1,14 @@
+import { env } from '@rangoo/env'
+import { drizzle } from 'drizzle-orm/node-postgres'
+import * as pg from 'pg'
+import * as schema from './schemas/index'
+
+const pool = new pg.Pool({
+	connectionString: env.DATABASE_URL,
+})
+
+export const db = drizzle(pool, { schema })
+
+export * from 'drizzle-orm'
+export * from './schemas/index'
+export { schema }
