@@ -18,7 +18,7 @@ export async function createNewRestaurantModule(
 		street,
 		streetNumber,
 		zipCode,
-		document
+		document,
 	} = request.body
 
 	const [newRestaurant] = await db
@@ -35,7 +35,7 @@ export async function createNewRestaurantModule(
 			complement,
 			ownerId,
 			neighborhood,
-			document
+			document,
 		})
 		.returning({ id: restaurantTable.id })
 
