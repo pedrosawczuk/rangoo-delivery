@@ -216,9 +216,15 @@ importers:
 
   apps/api:
     dependencies:
+      '@rangoo/database':
+        specifier: workspace:*
+        version: link:../../packages/database
       '@rangoo/env':
         specifier: workspace:*
         version: link:../../packages/env
+      drizzle-orm:
+        specifier: ^0.45.2
+        version: 0.45.2(@types/pg@8.20.0)(pg@8.22.0)
       fastify:
         specifier: ^5.9.0
         version: 5.9.0
@@ -229,9 +235,15 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3
     devDependencies:
+      '@types/node':
+        specifier: ^26.1.0
+        version: 26.1.0
       tsx:
         specifier: ^4.22.4
         version: 4.22.4
+      typescript:
+        specifier: ^6.0.3
+        version: 6.0.3
 
   packages/database:
     dependencies:
@@ -257,6 +269,9 @@ importers:
 
   packages/env:
     dependencies:
+      dotenv:
+        specifier: ^17.4.2
+        version: 17.4.2
       zod:
         specifier: ^4.4.3
         version: 4.4.3
@@ -880,6 +895,10 @@ packages:
     resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
     engines: {node: '>=6'}
 
+  dotenv@17.4.2:
+    resolution: {integrity: sha512-nI4U3TottKAcAD9LLud4Cb7b2QztQMUEfHbvhTH09bqXTxnSie8WnjPALV/WMCrJZ6UV/qHJ6L03OqO3LcdYZw==}
+    engines: {node: '>=12'}
+
   drizzle-kit@0.31.10:
     resolution: {integrity: sha512-7OZcmQUrdGI+DUNNsKBn1aW8qSoKuTH7d0mYgSP8bAzdFzKoovxEFnoGQp2dVs82EOJeYycqRtciopszwUf8bw==}
     hasBin: true
@@ -1204,6 +1223,11 @@ packages:
 
   turbo@2.10.2:
     resolution: {integrity: sha512-wTExrNrRjB8qzIcg+ZLm0A3GFNLDsWNwdS/RBXB0FPrBDyzk3i96Yx+TxWZC7a0k1SIreFB8ciUbxjmEqTH8IQ==}
+    hasBin: true
+
+  typescript@6.0.3:
+    resolution: {integrity: sha512-y2TvuxSZPDyQakkFRPZHKFm+KKVqIisdg9/CZwm9ftvKXLP8NRWj38/ODjNbr43SsoXqNuAisEf1GdCxqWcdBw==}
+    engines: {node: '>=14.17'}
     hasBin: true
 
   undici-types@8.3.0:
@@ -1589,6 +1613,8 @@ snapshots:
 
   dequal@2.0.3: {}
 
+  dotenv@17.4.2: {}
+
   drizzle-kit@0.31.10:
     dependencies:
       '@drizzle-team/brocli': 0.10.2
@@ -1906,6 +1932,8 @@ snapshots:
       '@turbo/linux-arm64': 2.10.2
       '@turbo/windows-64': 2.10.2
       '@turbo/windows-arm64': 2.10.2
+
+  typescript@6.0.3: {}
 
   undici-types@8.3.0: {}
 
