@@ -1,0 +1,23 @@
+### Variables
+@apiUrl = http://localhost:3000
+
+### GET Hello World
+GET {{apiUrl}} 
+
+### POST New Restaurant
+POST {{apiUrl}}/restaurant/create
+Content-Type: application/json
+
+{
+    "name": "Mais Pizza",
+    "description": "An exquisite pigeon roast, infused with the essence of custard apple, slow-roasted to bring out its natural flavors and served with a side of creamy parsnip",
+    "phone": "(86) 31779-2768",
+    "ownerId": "019f378c-6008-7376-addb-e1f2d779fe90",
+    "street": "Fabrício Alameda",
+    "city": "Xavier de Nossa Senhora",
+    "complement": "",
+    "neighborhood": "Setor 3",
+    "state": "Santa Catarina",
+    "streetNumber": "537",
+    "zipCode": "70583-185"
+}
