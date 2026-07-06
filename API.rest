@@ -19,5 +19,9 @@ Content-Type: application/json
     "neighborhood": "Setor 3",
     "state": "Santa Catarina",
     "streetNumber": "537",
-    "zipCode": "70583-185"
+    "zipCode": "70583-185",
+    "document": "9697679030678"
 }
+
+### GET List Restaurant By Owner
+GET {{apiUrl}}/restaurant/list/owner/019f378c-6008-7376-addb-e1f2d779fe90
