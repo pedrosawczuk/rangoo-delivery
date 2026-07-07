@@ -16,7 +16,12 @@ export const createNewRestaurantSchema = z.object({
 	neighborhood: z.string().trim().min(1).max(255),
 	city: z.string().trim().min(1).max(255),
 	state: z.string().trim().min(1).max(50),
-	zipCode: z.string().trim().min(1).max(20).transform((val)=> val.replace(/\D/g, '')),
+	zipCode: z
+		.string()
+		.trim()
+		.min(1)
+		.max(20)
+		.transform((val) => val.replace(/\D/g, '')),
 	document: z
 		.string()
 		.trim()
