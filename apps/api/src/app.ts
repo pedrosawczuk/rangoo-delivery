@@ -5,6 +5,7 @@ import {
 	validatorCompiler,
 } from 'fastify-type-provider-zod'
 import { restaurantRoutes } from './modules/restaurant/restaurant-routes'
+import { menuRoutes } from './modules/menu/menu-routes'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -12,5 +13,7 @@ app.setSerializerCompiler(serializerCompiler)
 app.setValidatorCompiler(validatorCompiler)
 
 app.register(restaurantRoutes, { prefix: '/restaurant' })
+
+app.register(menuRoutes, { prefix: '/menu' })
 
 app.get('/', () => 'Hello World')

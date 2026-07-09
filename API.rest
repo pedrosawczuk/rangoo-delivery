@@ -25,3 +25,21 @@ Content-Type: application/json
 
 ### GET List Restaurant By Owner
 GET {{apiUrl}}/restaurant/owner/019f378c-6008-7376-addb-e1f2d779fe90
+
+### POST Create New Item to Menu
+POST {{apiUrl}}/menu/019f392d-55ca-711a-a412-19517b1923ec
+Content-Type: application/json
+
+{
+    "name": "Goose With Dragonfruit Sauce",
+    "description": "A classic pie filled with delicious goose and crunchy beans, baked in a tender pastry crust and topped with a golden-brown lattice.",
+    "priceInCents": 11239,
+    "isVegetarian": false,
+    "isAvailable": false
+}
+
+### GET List Items to Menu
+GET {{apiUrl}}/menu/019f392d-55ca-711a-a412-19517b1923ec
+
+### GET Get Item to Menu
+GET {{apiUrl}}/menu/019f392d-55ca-711a-a412-19517b1923ec/019f47e7-10d7-70e7-9b1a-ebb622012b60
