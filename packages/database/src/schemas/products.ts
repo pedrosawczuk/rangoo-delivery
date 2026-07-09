@@ -27,5 +27,7 @@ export const productsTable = pgTable('products', {
 	discountPriceInCents: integer('discount_price_in_cents'),
 
 	createdAt: timestamp().defaultNow().notNull(),
-	updatedAt: timestamp().notNull().$onUpdateFn(() => new Date()),
+	updatedAt: timestamp()
+		.notNull()
+		.$onUpdateFn(() => new Date()),
 })

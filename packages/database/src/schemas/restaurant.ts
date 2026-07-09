@@ -24,5 +24,7 @@ export const restaurantTable = pgTable('restaurants', {
 	zipCode: varchar('zip_code', { length: 20 }).notNull(),
 
 	createdAt: timestamp().defaultNow().notNull(),
-	updatedAt: timestamp().notNull().$onUpdateFn(() => new Date()),
+	updatedAt: timestamp()
+		.notNull()
+		.$onUpdateFn(() => new Date()),
 })

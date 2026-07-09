@@ -1,6 +1,7 @@
 import type { FastifyInstance } from 'fastify'
 import { z } from 'zod'
 import { itemIdSchema } from '../../utils/schemas/item-id-schema'
+import { paginationQuerySchema } from '../../utils/schemas/pagination-query-schema'
 import { restaurantIdSchema } from '../../utils/schemas/restaurant-id-schema'
 import { createMenuItemModule } from './create-menu-item'
 import { createMenuItemSchema } from './create-menu-item-schema'
@@ -10,7 +11,12 @@ import { listMenuItemsModule } from './list-menu-items'
 export function menuRoutes(app: FastifyInstance) {
 	app.get(
 		'/:restaurantId',
-		{ schema: { params: restaurantIdSchema } },
+		{
+			schema: {
+				params: restaurantIdSchema,
+				querystring: paginationQuerySchema,
+			},
+		},
 		listMenuItemsModule,
 	)
 	app.get(

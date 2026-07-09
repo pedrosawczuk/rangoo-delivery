@@ -1,5 +1,6 @@
-import { and, db, eq, productsTable } from '@rangoo/database'
+import { and, db, eq, productsTable, restaurantTable } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
+import { NotFoundError } from '../../core/errors'
 import type { ItemIdSchema } from '../../utils/schemas/item-id-schema'
 import type { RestaurantIdSchema } from '../../utils/schemas/restaurant-id-schema'
 
@@ -11,6 +12,13 @@ export async function getMenuItemModule(
 ) {
 	const { restaurantId, itemId } = request.params
 
+	const [restaurantExists] = await db
+		.select()
+		.from(restaurantTable)
+		.where(eq(restaurantTable.id, restaurantId))
+
+	if (!restaurantExists) throw new NotFoundError('Restaurant Not Found')
+
 	const [getMenuItemData] = await db
 		.select()
 		.from(productsTable)
@@ -21,8 +29,7 @@ export async function getMenuItemModule(
 			),
 		)
 
-	if (!getMenuItemData)
-		return reply.status(404).send({ message: 'Menu Item Not Found' })
+	if (!getMenuItemData) throw new NotFoundError('Item Not Found')
 
 	return reply.status(200).send({ data: getMenuItemData })
 }

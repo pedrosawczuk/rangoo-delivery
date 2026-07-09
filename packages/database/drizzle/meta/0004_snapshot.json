@@ -1,228 +1,220 @@
 {
-  "id": "30b56070-3258-4b42-a70e-ae11f3aa760b",
-  "prevId": "906b90e5-a7f7-4bfb-9991-f200ec702484",
-  "version": "7",
-  "dialect": "postgresql",
-  "tables": {
-    "public.restaurants": {
-      "name": "restaurants",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "phone": {
-          "name": "phone",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "document": {
-          "name": "document",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "owner_id": {
-          "name": "owner_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "street": {
-          "name": "street",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "street_number": {
-          "name": "street_number",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "complement": {
-          "name": "complement",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "neighborhood": {
-          "name": "neighborhood",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "city": {
-          "name": "city",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "state": {
-          "name": "state",
-          "type": "varchar(50)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "zip_code": {
-          "name": "zip_code",
-          "type": "varchar(20)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {},
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "restaurants_phone_unique": {
-          "name": "restaurants_phone_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "phone"
-          ]
-        },
-        "restaurants_document_unique": {
-          "name": "restaurants_document_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "document"
-          ]
-        }
-      },
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.products": {
-      "name": "products",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "uuid",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "varchar(100)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "description": {
-          "name": "description",
-          "type": "varchar",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "is_available": {
-          "name": "is_available",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": true
-        },
-        "is_vegetarian": {
-          "name": "is_vegetarian",
-          "type": "boolean",
-          "primaryKey": false,
-          "notNull": true,
-          "default": false
-        },
-        "restaurant_id": {
-          "name": "restaurant_id",
-          "type": "uuid",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "price_in_cents": {
-          "name": "price_in_cents",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "discount_price_in_cents": {
-          "name": "discount_price_in_cents",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "now()"
-        },
-        "updatedAt": {
-          "name": "updatedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "products_restaurant_id_restaurants_id_fk": {
-          "name": "products_restaurant_id_restaurants_id_fk",
-          "tableFrom": "products",
-          "tableTo": "restaurants",
-          "columnsFrom": [
-            "restaurant_id"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    }
-  },
-  "enums": {},
-  "schemas": {},
-  "sequences": {},
-  "roles": {},
-  "policies": {},
-  "views": {},
-  "_meta": {
-    "columns": {},
-    "schemas": {},
-    "tables": {}
-  }
+	"id": "30b56070-3258-4b42-a70e-ae11f3aa760b",
+	"prevId": "906b90e5-a7f7-4bfb-9991-f200ec702484",
+	"version": "7",
+	"dialect": "postgresql",
+	"tables": {
+		"public.restaurants": {
+			"name": "restaurants",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "uuid",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"name": {
+					"name": "name",
+					"type": "varchar(255)",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"phone": {
+					"name": "phone",
+					"type": "varchar(50)",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"description": {
+					"name": "description",
+					"type": "text",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"document": {
+					"name": "document",
+					"type": "varchar(50)",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"owner_id": {
+					"name": "owner_id",
+					"type": "uuid",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"street": {
+					"name": "street",
+					"type": "varchar(255)",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"street_number": {
+					"name": "street_number",
+					"type": "varchar(50)",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"complement": {
+					"name": "complement",
+					"type": "varchar(255)",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"neighborhood": {
+					"name": "neighborhood",
+					"type": "varchar(255)",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"city": {
+					"name": "city",
+					"type": "varchar(255)",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"state": {
+					"name": "state",
+					"type": "varchar(50)",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"zip_code": {
+					"name": "zip_code",
+					"type": "varchar(20)",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"createdAt": {
+					"name": "createdAt",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				},
+				"updatedAt": {
+					"name": "updatedAt",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {
+				"restaurants_phone_unique": {
+					"name": "restaurants_phone_unique",
+					"nullsNotDistinct": false,
+					"columns": ["phone"]
+				},
+				"restaurants_document_unique": {
+					"name": "restaurants_document_unique",
+					"nullsNotDistinct": false,
+					"columns": ["document"]
+				}
+			},
+			"policies": {},
+			"checkConstraints": {},
+			"isRLSEnabled": false
+		},
+		"public.products": {
+			"name": "products",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "uuid",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"name": {
+					"name": "name",
+					"type": "varchar(100)",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"description": {
+					"name": "description",
+					"type": "varchar",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"is_available": {
+					"name": "is_available",
+					"type": "boolean",
+					"primaryKey": false,
+					"notNull": true,
+					"default": true
+				},
+				"is_vegetarian": {
+					"name": "is_vegetarian",
+					"type": "boolean",
+					"primaryKey": false,
+					"notNull": true,
+					"default": false
+				},
+				"restaurant_id": {
+					"name": "restaurant_id",
+					"type": "uuid",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"price_in_cents": {
+					"name": "price_in_cents",
+					"type": "integer",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"discount_price_in_cents": {
+					"name": "discount_price_in_cents",
+					"type": "integer",
+					"primaryKey": false,
+					"notNull": false
+				},
+				"createdAt": {
+					"name": "createdAt",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				},
+				"updatedAt": {
+					"name": "updatedAt",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {
+				"products_restaurant_id_restaurants_id_fk": {
+					"name": "products_restaurant_id_restaurants_id_fk",
+					"tableFrom": "products",
+					"tableTo": "restaurants",
+					"columnsFrom": ["restaurant_id"],
+					"columnsTo": ["id"],
+					"onDelete": "cascade",
+					"onUpdate": "no action"
+				}
+			},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {},
+			"policies": {},
+			"checkConstraints": {},
+			"isRLSEnabled": false
+		}
+	},
+	"enums": {},
+	"schemas": {},
+	"sequences": {},
+	"roles": {},
+	"policies": {},
+	"views": {},
+	"_meta": {
+		"columns": {},
+		"schemas": {},
+		"tables": {}
+	}
 }
