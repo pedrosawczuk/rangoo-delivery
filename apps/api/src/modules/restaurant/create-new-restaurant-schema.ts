@@ -9,6 +9,7 @@ export const createNewRestaurantSchema = z.object({
 		.max(50)
 		.transform((val) => val.replace(/\D/g, '')),
 	description: z.string().trim().min(1).max(2000),
+	categoryId: z.uuid('ID da categoria inválido'),
 	ownerId: z.uuid('ID do dono inválido'),
 	street: z.string().trim().min(1).max(255),
 	streetNumber: z.string().trim().min(1).max(50),
