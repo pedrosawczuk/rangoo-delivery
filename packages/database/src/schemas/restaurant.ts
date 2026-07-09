@@ -1,4 +1,4 @@
-import { pgTable, text, uuid, varchar } from 'drizzle-orm/pg-core'
+import { pgTable, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core'
 import { v7 as uuidv7 } from 'uuid'
 
 export const restaurantTable = pgTable('restaurants', {
@@ -22,4 +22,7 @@ export const restaurantTable = pgTable('restaurants', {
 	city: varchar('city', { length: 255 }).notNull(),
 	state: varchar('state', { length: 50 }).notNull(),
 	zipCode: varchar('zip_code', { length: 20 }).notNull(),
+
+	createdAt: timestamp().defaultNow().notNull(),
+	updatedAt: timestamp().notNull().$onUpdateFn(() => new Date()),
 })
