@@ -1,20 +1,41 @@
 {
-	"version": "7",
-	"dialect": "postgresql",
-	"entries": [
-		{
-			"idx": 0,
-			"version": "7",
-			"when": 1783343928678,
-			"tag": "0000_sad_thor",
-			"breakpoints": true
-		},
-		{
-			"idx": 1,
-			"version": "7",
-			"when": 1783363868097,
-			"tag": "0001_skinny_susan_delgado",
-			"breakpoints": true
-		}
-	]
+  "version": "7",
+  "dialect": "postgresql",
+  "entries": [
+    {
+      "idx": 0,
+      "version": "7",
+      "when": 1783343928678,
+      "tag": "0000_sad_thor",
+      "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1783363868097,
+      "tag": "0001_skinny_susan_delgado",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1783608742907,
+      "tag": "0002_clammy_lucky_pierre",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1783610294741,
+      "tag": "0003_uneven_tony_stark",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1783622968988,
+      "tag": "0004_right_raza",
+      "breakpoints": true
+    }
+  ]
 }
