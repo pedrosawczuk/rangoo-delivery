@@ -24,4 +24,4 @@ Content-Type: application/json
 }
 
 ### GET List Restaurant By Owner
-GET {{apiUrl}}/restaurant/list/owner/019f378c-6008-7376-addb-e1f2d779fe90
+GET {{apiUrl}}/restaurant/owner/019f378c-6008-7376-addb-e1f2d779fe90

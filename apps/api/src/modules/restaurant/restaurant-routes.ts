@@ -7,12 +7,12 @@ import { listRestaurantByOwnerSchema } from './list-restaurant-by-owner-schema'
 
 export function restaurantRoutes(app: FastifyInstance) {
 	app.post(
-		'/create',
+		'/',
 		{ schema: { body: createNewRestaurantSchema } },
 		createNewRestaurantModule,
 	)
 	app.get(
-		'/list/owner/:ownerId',
+		'/owner/:ownerId',
 		{
 			schema: {
 				params: listRestaurantByOwnerSchema,
