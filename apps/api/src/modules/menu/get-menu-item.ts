@@ -4,10 +4,8 @@ import { NotFoundError } from '../../core/errors'
 import type { ItemIdSchema } from '../../utils/schemas/item-id-schema'
 import type { RestaurantIdSchema } from '../../utils/schemas/restaurant-id-schema'
 
-type GetMenuItemParams = ItemIdSchema & RestaurantIdSchema
-
 export async function getMenuItemModule(
-	request: FastifyRequest<{ Params: GetMenuItemParams }>,
+	request: FastifyRequest<{ Params: ItemIdSchema & RestaurantIdSchema }>,
 	reply: FastifyReply,
 ) {
 	const { restaurantId, itemId } = request.params
