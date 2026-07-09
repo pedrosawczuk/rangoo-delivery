@@ -19,6 +19,7 @@ export async function createMenuItemModule(
 		discountPriceInCents,
 		isAvailable,
 		isVegetarian,
+		categoryId,
 		name,
 		priceInCents,
 	} = request.body
@@ -41,6 +42,7 @@ export async function createMenuItemModule(
 			discountPriceInCents,
 			isAvailable,
 			isVegetarian,
+			categoryId,
 			description,
 			name,
 		})

@@ -7,6 +7,7 @@ export const createMenuItemSchema = z.object({
 	isVegetarian: z.boolean(),
 	priceInCents: z.coerce.number().nonnegative().default(0),
 	discountPriceInCents: z.coerce.number().nonnegative().optional().default(0),
+	categoryId: z.uuid('ID da categoria inválido'),
 })
 
 export type CreateMenuItemSchema = z.infer<typeof createMenuItemSchema>
