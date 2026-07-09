@@ -7,6 +7,7 @@ import {
 	varchar,
 } from 'drizzle-orm/pg-core'
 import { v7 as uuidv7 } from 'uuid'
+import { productCategoriesTable } from './product-categories'
 import { restaurantTable } from './restaurant'
 
 export const productsTable = pgTable('products', {
@@ -25,6 +26,10 @@ export const productsTable = pgTable('products', {
 
 	priceInCents: integer('price_in_cents').notNull(),
 	discountPriceInCents: integer('discount_price_in_cents'),
+
+	categoryId: uuid('category_id')
+		.notNull()
+		.references(() => productCategoriesTable.id, { onDelete: 'restrict' }),
 
 	createdAt: timestamp().defaultNow().notNull(),
 	updatedAt: timestamp()

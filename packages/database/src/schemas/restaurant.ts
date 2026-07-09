@@ -1,5 +1,6 @@
 import { pgTable, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core'
 import { v7 as uuidv7 } from 'uuid'
+import { restaurantCategoriesTable } from './restaurant-categories'
 
 export const restaurantTable = pgTable('restaurants', {
 	id: uuid('id')
@@ -22,6 +23,10 @@ export const restaurantTable = pgTable('restaurants', {
 	city: varchar('city', { length: 255 }).notNull(),
 	state: varchar('state', { length: 50 }).notNull(),
 	zipCode: varchar('zip_code', { length: 20 }).notNull(),
+
+	categoryId: uuid('category_id')
+		.notNull()
+		.references(() => restaurantCategoriesTable.id, { onDelete: 'restrict' }),
 
 	createdAt: timestamp().defaultNow().notNull(),
 	updatedAt: timestamp()
