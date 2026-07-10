@@ -1,11 +1,33 @@
-### Variables
+### VARIABLES & GLOBAL
 @apiUrl = http://localhost:3000
 
 ### GET Hello World
 GET {{apiUrl}} 
 
+
+### CATEGORIES
+
+### POST Create New Restaurant Category
+POST {{apiUrl}}/categories/restaurant
+Content-Type: application/json
+
+{
+    "name": "Lanchonete"
+}
+
+### POST Create New Product Category
+POST {{apiUrl}}/categories/product
+Content-Type: application/json
+
+{
+    "name": "maIS pedIdOS eSSe ano"
+}
+
+
+### RESTAURANT
+
 ### POST New Restaurant
-POST {{apiUrl}}/restaurant/create
+POST {{apiUrl}}/restaurant
 Content-Type: application/json
 
 {
@@ -15,6 +37,7 @@ Content-Type: application/json
     "ownerId": "019f378c-6008-7376-addb-e1f2d779fe90",
     "street": "Fabrício Alameda",
     "city": "Xavier de Nossa Senhora",
+    "categoryId": "019f4c51-5404-7209-b1ad-b96cb1df7756",
     "complement": "",
     "neighborhood": "Setor 3",
     "state": "Santa Catarina",
@@ -26,14 +49,18 @@ Content-Type: application/json
 ### GET List Restaurant By Owner
 GET {{apiUrl}}/restaurant/owner/019f378c-6
 
+
+### MENU 
+
 ### POST Create New Item to Menu
-POST {{apiUrl}}/menu/019f392d-55ca-711a-a414-19517b1923ec
+POST {{apiUrl}}/menu/019f4c9e-936e-76c8-a367-b6f3033a6ba1
 Content-Type: application/json
 
 {
-    "name": "Goose With Dragonfruit Sauce",
-    "description": "A classic pie filled with delicious goose and crunchy beans, baked in a tender pastry crust and topped with a golden-brown lattice.",
-    "priceInCents": 11239,
+    "name": "broccolini",
+    "description": "A robust crunchy stew featuring Cantonese flavors, loaded with zesty meat, crispy vegetables, and a sweet, sour broth.",
+    "priceInCents": 87,
+    "categoryId": "019f4c61-1ee0-71f9-81f7-af477ac48792",
     "isVegetarian": false,
     "isAvailable": false
 }
@@ -44,5 +71,5 @@ GET {{apiUrl}}/menu/019f392d-55ca-711a-a412-19517b1923ec
 ### GET Get Item to Menu
 GET {{apiUrl}}/menu/019f392d-55ca-711a-a412-19517b1923ec/019f47e7-10d7-70e7-9b1a-ebb622012b60
 
-
-### POST Create New Item
+### DELETE Item to Menu
+DELETE {{apiUrl}}/menu/019f4c9e-936e-76c8-a367-b6f3033a6ba1/019f4c9f-4e45-702c-bda0-6d4ed53a3b13
