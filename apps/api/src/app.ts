@@ -5,6 +5,7 @@ import {
 	validatorCompiler,
 } from 'fastify-type-provider-zod'
 import { AppError } from './core/errors/app-error'
+import { categoriesRoutes } from './modules/categories/categories-routes'
 import { menuRoutes } from './modules/menu/menu-routes'
 import { restaurantRoutes } from './modules/restaurant/restaurant-routes'
 
@@ -16,6 +17,8 @@ app.setValidatorCompiler(validatorCompiler)
 app.register(restaurantRoutes, { prefix: '/restaurant' })
 
 app.register(menuRoutes, { prefix: '/menu' })
+
+app.register(categoriesRoutes, { prefix: '/categories' })
 
 app.setErrorHandler((error, request, reply) => {
 	if (error instanceof AppError) {
