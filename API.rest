@@ -106,3 +106,12 @@ GET {{apiUrl}}/menu/019f392d-55ca-711a-a412-19517b1923ec/019f47e7-10d7-70e7-9b1a
 
 ### DELETE Item to Menu
 DELETE {{apiUrl}}/menu/019f4c9e-936e-76c8-a367-b6f3033a6ba1/019f4c9f-4e45-702c-bda0-6d4ed53a3b13
+
+### PUT Update Menu Item
+PUT {{apiUrl}}/menu/019f4c9e-936e-76c8-a367-b6f3033a6ba1/019f4ca0-c4c3-75af-81ee-533997360843
+Content-Type: application/json
+
+{
+    "name": "Tste",
+    "priceInCents": 321
+}

@@ -8,6 +8,8 @@ import { createMenuItemSchema } from './create-menu-item-schema'
 import { deleteMenuItemModule } from './delete-menu-item'
 import { getMenuItemModule } from './get-menu-item'
 import { listMenuItemsModule } from './list-menu-items'
+import { updateMenuItemModule } from './update-menu-item'
+import { updateMenuItemSchema } from './update-menu-item-schema'
 
 export function menuRoutes(app: FastifyInstance) {
 	app.get(
@@ -36,5 +38,15 @@ export function menuRoutes(app: FastifyInstance) {
 			schema: { body: createMenuItemSchema, params: restaurantIdSchema },
 		},
 		createMenuItemModule,
+	)
+	app.put(
+		'/:restaurantId/:itemId',
+		{
+			schema: {
+				body: updateMenuItemSchema,
+				params: z.intersection(restaurantIdSchema, itemIdSchema),
+			},
+		},
+		updateMenuItemModule,
 	)
 }
