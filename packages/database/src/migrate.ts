@@ -6,7 +6,10 @@ import { Pool } from 'pg'
 async function runMigrations() {
 	console.log('⏳ Iniciando migrations...')
 
-	const pool = new Pool({ connectionString: env.DATABASE_URL })
+	const pool = new Pool({
+		connectionString:
+			env.NODE_ENV === 'test' ? env.TEST_DATABASE_URL : env.DATABASE_URL,
+	})
 	const db = drizzle(pool)
 
 	try {

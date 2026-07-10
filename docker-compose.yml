@@ -1,15 +1,27 @@
 services:
-  db:
+  dev_db:
     image: bitnami/postgresql:latest
-    container_name: rangoo_db_postgres
+    container_name: rangoo_dev_db_postgres
     ports:
       - "5432:5432"
     environment:
       - POSTGRESQL_USERNAME=rangoo_user
       - POSTGRESQL_PASSWORD=password
-      - POSTGRESQL_DATABASE=rangoo_db
+      - POSTGRESQL_DATABASE=rangoo_dev
     volumes:
       - pgdata:/bitnami/postgresql
+  test_db:
+    image: bitnami/postgresql:latest
+    container_name: rangoo_test_db_postgres
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRESQL_USERNAME=rangoo_user
+      - POSTGRESQL_PASSWORD=password
+      - POSTGRESQL_DATABASE=rangoo_test
+    volumes:
+      - pgtestdata:/bitnami/postgresql
 
 volumes:
   pgdata:
+  pgtestdata:
