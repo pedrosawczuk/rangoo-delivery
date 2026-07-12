@@ -27,7 +27,8 @@ export async function updateRestaurantCategoryModule(
 			),
 		)
 
-	if (slugExists) throw new ConflictError('Slug already exists for another category')
+	if (slugExists)
+		throw new ConflictError('Slug already exists for another category')
 
 	const [updatedCategory] = await db
 		.update(restaurantCategoriesTable)

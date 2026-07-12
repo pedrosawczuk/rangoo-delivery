@@ -3,9 +3,9 @@ import { app } from './app'
 
 test('GET / return Hello World', async () => {
 	const response = await app.inject({
-        method: "GET",
-        url: '/'
-    })
+		method: 'GET',
+		url: '/',
+	})
 
-    expect(response.statusCode).toBe(200)
+	expect(response.statusCode).toBe(200)
 })

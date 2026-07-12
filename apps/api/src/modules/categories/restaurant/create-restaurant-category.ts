@@ -13,7 +13,7 @@ export async function createRestaurantCategoryModule(
 	const slugNormalize = generateSlug(name)
 
 	const [slugExists] = await db
-		.select() 
+		.select()
 		.from(restaurantCategoriesTable)
 		.where(eq(restaurantCategoriesTable.slug, slugNormalize))
 

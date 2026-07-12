@@ -6,10 +6,7 @@ export const updateMenuItemSchema = z.object({
 	isAvailable: z.boolean().optional(),
 	isVegetarian: z.boolean().optional(),
 	priceInCents: z.coerce.number().nonnegative().optional(),
-	discountPriceInCents: z.coerce
-		.number()
-		.nonnegative()
-		.optional(),
+	discountPriceInCents: z.coerce.number().nonnegative().optional(),
 	categoryId: z.uuid('ID da categoria inválido').optional(),
 })
 
