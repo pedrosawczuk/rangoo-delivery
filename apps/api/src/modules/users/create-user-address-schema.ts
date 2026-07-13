@@ -14,7 +14,7 @@ export const createUserAddressSchema = z.object({
 		.transform((val) => val.replace(/\D/g, ''))
 		.pipe(z.string().min(1, 'Required field').max(20)),
 	isDefault: z.boolean().default(false),
-	type: z.enum(['Work', 'Home']).optional(),
+	type: z.enum(['WORK', 'HOME']).optional(),
 })
 
 export type CreateUserAddressSchema = z.infer<typeof createUserAddressSchema>
