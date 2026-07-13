@@ -6,15 +6,15 @@ import {
 	uuid,
 	varchar,
 } from 'drizzle-orm/pg-core'
-import { v7 as uuidv7 } from 'uuid'
+import { v7 } from 'uuid'
 import { usersTable } from './users'
 
-export const addressTypeEnum = pgEnum('address_type_enum', ['Work', 'Home'])
+export const addressTypeEnum = pgEnum('address_type_enum', ['WORK', 'HOME'])
 
 export const userAddressTable = pgTable('users_address', {
 	id: uuid('id')
 		.primaryKey()
-		.$default(() => uuidv7()),
+		.$default(() => v7()),
 	userId: uuid('user_id')
 		.notNull()
 		.references(() => usersTable.id, { onDelete: 'cascade' }),

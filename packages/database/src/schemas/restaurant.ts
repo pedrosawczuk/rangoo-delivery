@@ -1,11 +1,12 @@
 import { pgTable, text, timestamp, uuid, varchar } from 'drizzle-orm/pg-core'
-import { v7 as uuidv7 } from 'uuid'
+import { v7 } from 'uuid'
 import { restaurantCategoriesTable } from './restaurant-categories'
+import { usersTable } from './users'
 
 export const restaurantTable = pgTable('restaurants', {
 	id: uuid('id')
 		.primaryKey()
-		.$defaultFn(() => uuidv7()),
+		.$defaultFn(() => v7()),
 	name: varchar('name', { length: 255 }).notNull(),
 	phone: varchar('phone', { length: 50 }).notNull().unique(),
 	description: text('description').notNull(),
@@ -13,8 +14,8 @@ export const restaurantTable = pgTable('restaurants', {
 	document: varchar('document', { length: 50 }).notNull().unique(),
 
 	ownerId: uuid('owner_id')
-		.$defaultFn(() => uuidv7())
-		.notNull(),
+		.notNull()
+		.references(() => usersTable.id, { onDelete: 'cascade' }),
 
 	street: varchar('street', { length: 255 }).notNull(),
 	streetNumber: varchar('street_number', { length: 50 }).notNull(),

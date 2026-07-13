@@ -6,14 +6,14 @@ import {
 	uuid,
 	varchar,
 } from 'drizzle-orm/pg-core'
-import { v7 as uuidv7 } from 'uuid'
+import { v7 } from 'uuid'
 import { productCategoriesTable } from './product-categories'
 import { restaurantTable } from './restaurant'
 
 export const productsTable = pgTable('products', {
 	id: uuid('id')
 		.primaryKey()
-		.$default(() => uuidv7()),
+		.$default(() => v7()),
 	name: varchar('name', { length: 100 }).notNull(),
 	description: varchar('description').notNull(),
 
