@@ -3,6 +3,7 @@
 	"scripts": {
 		"dev": "turbo dev",
 		"build": "turbo build",
+		"test": "turbo test",
 		"format": "biome format --write .",
 		"check": "biome check --apply"
 	},
