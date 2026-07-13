@@ -8,6 +8,7 @@
 	"dependencies": {
 		"@rangoo/database": "workspace:*",
 		"@rangoo/env": "workspace:*",
+		"argon2": "^0.44.0",
 		"drizzle-orm": "^0.45.2",
 		"fastify": "^5.9.0",
 		"fastify-type-provider-zod": "^7.0.0",
