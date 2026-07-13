@@ -1,30 +1,63 @@
+import { faker } from '@faker-js/faker'
 import { db, productCategoriesTable } from '@rangoo/database'
 import { beforeEach, describe, expect, test } from 'vitest'
+import { app } from '../../../app'
 
-describe('Product Category', () => {
+describe('POST /categories/product', () => {
 	beforeEach(async () => {
 		await db.delete(productCategoriesTable)
 	})
 
-	test('deve criar uma categoria de produto com sucesso', async () => {
-		const data = [
-			{
-				name: 'Bebidas',
-				slug: 'bebidas',
-			},
-			{
-				name: 'Sobremesas',
-				slug: 'sobremesas',
-			},
-		]
+	test('should create a new product category and return status 201', async () => {
+		const requestBody = {
+			name: faker.commerce.department(),
+		}
 
-		await db.insert(productCategoriesTable).values(data)
+		const response = await app.inject({
+			method: 'POST',
+			url: '/categories/product',
+			payload: requestBody,
+		})
 
-		const saveCategory = await db.select().from(productCategoriesTable)
+		if (response.statusCode !== 201) {
+			console.error('Debug: Test failed. API Response Body:', response.json())
+		}
 
-		expect(saveCategory).toHaveLength(2)
+		expect(response.statusCode).toBe(201)
 
-		expect(saveCategory[0].name).toBe('Bebidas')
-		expect(saveCategory[0].slug).toBe('bebidas')
+		const responseData = response.json()
+		expect(responseData).toHaveProperty('id')
+
+		const savedCategories = await db.select().from(productCategoriesTable)
+
+		const expectedName = requestBody.name
+			.toLowerCase()
+			.replace(/(?:^|\s)\S/g, (char) => char.toUpperCase())
+
+		expect(savedCategories).toHaveLength(1)
+		expect(savedCategories[0].name).toBe(expectedName)
+	})
+
+	test('should return 409 if product category slug already exists', async () => {
+		const requestBody = {
+			name: faker.commerce.department(),
+		}
+
+		await app.inject({
+			method: 'POST',
+			url: '/categories/product',
+			payload: requestBody,
+		})
+
+		const response = await app.inject({
+			method: 'POST',
+			url: '/categories/product',
+			payload: requestBody,
+		})
+
+		expect(response.statusCode).toBe(409)
+
+		const responseData = response.json()
+		expect(responseData.message).toBe('Slug already exists')
 	})
 })
