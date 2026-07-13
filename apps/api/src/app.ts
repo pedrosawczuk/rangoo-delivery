@@ -9,6 +9,7 @@ import { authRoutes } from './modules/auth/auth-routes'
 import { categoriesRoutes } from './modules/categories/categories-routes'
 import { menuRoutes } from './modules/menu/menu-routes'
 import { restaurantRoutes } from './modules/restaurant/restaurant-routes'
+import { userRoutes } from './modules/users/users-routes'
 
 export const app = fastify().withTypeProvider<ZodTypeProvider>()
 
@@ -22,6 +23,8 @@ app.register(menuRoutes, { prefix: '/menu' })
 app.register(categoriesRoutes, { prefix: '/categories' })
 
 app.register(authRoutes, { prefix: '/auth' })
+
+app.register(userRoutes, { prefix: '/users' })
 
 app.setErrorHandler((error, request, reply) => {
 	if (error instanceof AppError) {
