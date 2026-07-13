@@ -1,9 +1,66 @@
 {
-	"id": "d370dfa6-ba99-4577-b79e-45b9b98f8cbd",
-	"prevId": "4a7e669d-d75d-4a2c-ac14-cdb1e58dfedd",
+	"id": "edf3a0f2-9f02-4992-8270-f2cf7b5305fa",
+	"prevId": "d370dfa6-ba99-4577-b79e-45b9b98f8cbd",
 	"version": "7",
 	"dialect": "postgresql",
 	"tables": {
+		"public.plans": {
+			"name": "plans",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "uuid",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"name": {
+					"name": "name",
+					"type": "varchar",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"price_in_cents": {
+					"name": "price_in_cents",
+					"type": "integer",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"billing_cycle": {
+					"name": "billing_cycle",
+					"type": "billing_cycle",
+					"typeSchema": "public",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"active": {
+					"name": "active",
+					"type": "boolean",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"createdAt": {
+					"name": "createdAt",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				},
+				"updatedAt": {
+					"name": "updatedAt",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {},
+			"policies": {},
+			"checkConstraints": {},
+			"isRLSEnabled": false
+		},
 		"public.product_categories": {
 			"name": "product_categories",
 			"schema": "",
@@ -259,6 +316,15 @@
 			},
 			"indexes": {},
 			"foreignKeys": {
+				"restaurants_owner_id_users_id_fk": {
+					"name": "restaurants_owner_id_users_id_fk",
+					"tableFrom": "restaurants",
+					"tableTo": "users",
+					"columnsFrom": ["owner_id"],
+					"columnsTo": ["id"],
+					"onDelete": "cascade",
+					"onUpdate": "no action"
+				},
 				"restaurants_category_id_restaurant_categories_id_fk": {
 					"name": "restaurants_category_id_restaurant_categories_id_fk",
 					"tableFrom": "restaurants",
@@ -332,6 +398,158 @@
 					"columns": ["slug"]
 				}
 			},
+			"policies": {},
+			"checkConstraints": {},
+			"isRLSEnabled": false
+		},
+		"public.restaurant_members": {
+			"name": "restaurant_members",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "uuid",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"restaurant_id": {
+					"name": "restaurant_id",
+					"type": "uuid",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"user_id": {
+					"name": "user_id",
+					"type": "uuid",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"role": {
+					"name": "role",
+					"type": "role",
+					"typeSchema": "public",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"createdAt": {
+					"name": "createdAt",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				},
+				"updatedAt": {
+					"name": "updatedAt",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {
+				"restaurant_members_restaurant_id_restaurants_id_fk": {
+					"name": "restaurant_members_restaurant_id_restaurants_id_fk",
+					"tableFrom": "restaurant_members",
+					"tableTo": "restaurants",
+					"columnsFrom": ["restaurant_id"],
+					"columnsTo": ["id"],
+					"onDelete": "no action",
+					"onUpdate": "no action"
+				},
+				"restaurant_members_user_id_users_id_fk": {
+					"name": "restaurant_members_user_id_users_id_fk",
+					"tableFrom": "restaurant_members",
+					"tableTo": "users",
+					"columnsFrom": ["user_id"],
+					"columnsTo": ["id"],
+					"onDelete": "no action",
+					"onUpdate": "no action"
+				}
+			},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {},
+			"policies": {},
+			"checkConstraints": {},
+			"isRLSEnabled": false
+		},
+		"public.user_subscriptions": {
+			"name": "user_subscriptions",
+			"schema": "",
+			"columns": {
+				"id": {
+					"name": "id",
+					"type": "uuid",
+					"primaryKey": true,
+					"notNull": true
+				},
+				"user_id": {
+					"name": "user_id",
+					"type": "uuid",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"plan_id": {
+					"name": "plan_id",
+					"type": "uuid",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"status": {
+					"name": "status",
+					"type": "status",
+					"typeSchema": "public",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"current_period_start": {
+					"name": "current_period_start",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"current_period_end": {
+					"name": "current_period_end",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true
+				},
+				"createdAt": {
+					"name": "createdAt",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true,
+					"default": "now()"
+				},
+				"updatedAt": {
+					"name": "updatedAt",
+					"type": "timestamp",
+					"primaryKey": false,
+					"notNull": true
+				}
+			},
+			"indexes": {},
+			"foreignKeys": {
+				"user_subscriptions_user_id_users_id_fk": {
+					"name": "user_subscriptions_user_id_users_id_fk",
+					"tableFrom": "user_subscriptions",
+					"tableTo": "users",
+					"columnsFrom": ["user_id"],
+					"columnsTo": ["id"],
+					"onDelete": "no action",
+					"onUpdate": "no action"
+				},
+				"user_subscriptions_plan_id_plans_id_fk": {
+					"name": "user_subscriptions_plan_id_plans_id_fk",
+					"tableFrom": "user_subscriptions",
+					"tableTo": "plans",
+					"columnsFrom": ["plan_id"],
+					"columnsTo": ["id"],
+					"onDelete": "no action",
+					"onUpdate": "no action"
+				}
+			},
+			"compositePrimaryKeys": {},
+			"uniqueConstraints": {},
 			"policies": {},
 			"checkConstraints": {},
 			"isRLSEnabled": false
@@ -525,10 +743,25 @@
 		}
 	},
 	"enums": {
+		"public.billing_cycle": {
+			"name": "billing_cycle",
+			"schema": "public",
+			"values": ["MONTHLY", "YEARLY"]
+		},
+		"public.role": {
+			"name": "role",
+			"schema": "public",
+			"values": ["OWNER", "MANAGER", "DELIVERY_DRIVER", "STAFF"]
+		},
+		"public.status": {
+			"name": "status",
+			"schema": "public",
+			"values": ["ACTIVE", "CANCELED", "PAST_DUE", "EXPIRED"]
+		},
 		"public.address_type_enum": {
 			"name": "address_type_enum",
 			"schema": "public",
-			"values": ["Work", "Home"]
+			"values": ["WORK", "HOME"]
 		}
 	},
 	"schemas": {},
