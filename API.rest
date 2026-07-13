@@ -4,6 +4,21 @@
 GET {{apiUrl}} 
 
 
+### AUTH
+
+### POST Sign Up
+POST {{apiUrl}}/auth/sign-up
+Content-Type: application/json
+
+{
+    "firstName": "Pedro",
+    "lastName": "Silva",
+    "email": "pedro.silva@email.com",
+    "phone": "11999999999",
+    "document": "12345678901",
+    "passwordRaw": "Pedro0706!"
+}
+
 ### CATEGORIES
 
 ### POST Create New Restaurant Category
