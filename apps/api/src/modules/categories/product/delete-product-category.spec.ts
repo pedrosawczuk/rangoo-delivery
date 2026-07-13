@@ -27,7 +27,6 @@ describe('DELETE /categories/product/:categoryId', () => {
 		}
 
 		expect(response.statusCode).toBe(204)
-		// 204 No Content não tem corpo no response.json()
 
 		const savedCategories = await db.select().from(productCategoriesTable)
 		expect(savedCategories).toHaveLength(0)

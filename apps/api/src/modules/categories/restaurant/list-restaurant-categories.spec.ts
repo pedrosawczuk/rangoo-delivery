@@ -50,7 +50,6 @@ describe('GET /categories/restaurant', () => {
 	})
 
 	test('should return 200 and respect pagination params', async () => {
-		// Inserindo 5 categorias no banco
 		const dataToInsert = Array.from({ length: 5 }).map(() => ({
 			name: faker.company.name(),
 			slug: faker.string.uuid(),
@@ -58,7 +57,6 @@ describe('GET /categories/restaurant', () => {
 
 		await db.insert(restaurantCategoriesTable).values(dataToInsert)
 
-		// Pedindo a página 1, limitando a 2 itens
 		const response = await app.inject({
 			method: 'GET',
 			url: '/categories/restaurant?page=1&limit=2',
@@ -67,14 +65,12 @@ describe('GET /categories/restaurant', () => {
 		expect(response.statusCode).toBe(200)
 
 		const responseData = response.json()
-		
-		// O array retornado deve ser cortado (limit: 2)
+
 		expect(responseData.data).toHaveLength(2)
 
-		// A matemática da paginação deve refletir o total
 		expect(responseData.meta.totalCount).toBe(5)
 		expect(responseData.meta.page).toBe(1)
 		expect(responseData.meta.limit).toBe(2)
-		expect(responseData.meta.totalPages).toBe(3) // Math.ceil(5/2) = 3
+		expect(responseData.meta.totalPages).toBe(3)
 	})
 })
