@@ -1,8 +1,8 @@
 import { db, restaurantTable } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import type { CreateNewRestaurantSchema } from './create-new-restaurant-schema'
+import type { CreateNewRestaurantSchema } from './create-restaurant-schema'
 
-export async function createNewRestaurantModule(
+export async function createRestaurantModule(
 	request: FastifyRequest<{ Body: CreateNewRestaurantSchema }>,
 	reply: FastifyReply,
 ) {
