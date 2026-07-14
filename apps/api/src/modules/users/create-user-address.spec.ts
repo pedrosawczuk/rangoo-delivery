@@ -31,7 +31,7 @@ describe('POST /users/:userId/address', () => {
 		})
 
 		expect(response.statusCode).toBe(201)
-		
+
 		const responseData = response.json()
 		expect(responseData).toHaveProperty('id')
 
@@ -44,7 +44,10 @@ describe('POST /users/:userId/address', () => {
 
 	test('should set old default address to false when creating a new default address', async () => {
 		const user = await makeUser()
-		const oldAddress = await makeUserAddress({ userId: user.id, isDefault: true })
+		const oldAddress = await makeUserAddress({
+			userId: user.id,
+			isDefault: true,
+		})
 
 		const newStreet = faker.location.street()
 		const payload = {
@@ -93,7 +96,7 @@ describe('POST /users/:userId/address', () => {
 		})
 
 		expect(response.statusCode).toBe(404)
-		
+
 		const responseData = response.json()
 		expect(responseData.message).toBe('User not found')
 	})
