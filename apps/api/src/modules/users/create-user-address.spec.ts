@@ -1,5 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { db, userAddressTable, usersTable } from '@rangoo/database'
+import { makeUser } from '@rangoo/database/src/tests/factories/make-user'
+import { makeUserAddress } from '@rangoo/database/src/tests/factories/make-user-address'
 import { beforeEach, describe, expect, test } from 'vitest'
 import { app } from '../../app'
 
@@ -10,17 +12,7 @@ describe('POST /users/:userId/address', () => {
 	})
 
 	test('should create a new address for the user and return status 201', async () => {
-		const [createdUser] = await db
-			.insert(usersTable)
-			.values({
-				firstName: faker.person.firstName(),
-				lastName: faker.person.lastName(),
-				email: faker.internet.email(),
-				passwordHash: faker.internet.password(),
-				phone: faker.phone.number(),
-				document: '12345678900',
-			})
-			.returning()
+		const user = await makeUser()
 
 		const payload = {
 			street: faker.location.street(),
@@ -34,49 +26,25 @@ describe('POST /users/:userId/address', () => {
 
 		const response = await app.inject({
 			method: 'POST',
-			url: `/users/${createdUser.id}/address`,
+			url: `/users/${user.id}/address`,
 			payload,
 		})
 
-		if (response.statusCode !== 201) {
-			console.error('Debug: Test failed. API Response:', response.body)
-		}
-
 		expect(response.statusCode).toBe(201)
+		
 		const responseData = response.json()
 		expect(responseData).toHaveProperty('id')
 
 		const savedAddress = await db.select().from(userAddressTable)
 		expect(savedAddress).toHaveLength(1)
-		expect(savedAddress[0].userId).toBe(createdUser.id)
+		expect(savedAddress[0].userId).toBe(user.id)
 		expect(savedAddress[0].street).toBe(payload.street)
 		expect(savedAddress[0].isDefault).toBe(false)
 	})
 
 	test('should set old default address to false when creating a new default address', async () => {
-		const [createdUser] = await db
-			.insert(usersTable)
-			.values({
-				firstName: faker.person.firstName(),
-				lastName: faker.person.lastName(),
-				email: faker.internet.email(),
-				passwordHash: faker.internet.password(),
-				phone: faker.phone.number(),
-				document: '09876543211',
-			})
-			.returning()
-
-		const oldStreet = faker.location.street()
-		await db.insert(userAddressTable).values({
-			userId: createdUser.id,
-			street: oldStreet,
-			streetNumber: faker.location.buildingNumber(),
-			neighborhood: faker.location.county(),
-			city: faker.location.city(),
-			state: faker.location.state({ abbreviated: true }),
-			zipCode: faker.location.zipCode(),
-			isDefault: true,
-		})
+		const user = await makeUser()
+		const oldAddress = await makeUserAddress({ userId: user.id, isDefault: true })
 
 		const newStreet = faker.location.street()
 		const payload = {
@@ -91,7 +59,7 @@ describe('POST /users/:userId/address', () => {
 
 		const response = await app.inject({
 			method: 'POST',
-			url: `/users/${createdUser.id}/address`,
+			url: `/users/${user.id}/address`,
 			payload,
 		})
 
@@ -100,11 +68,11 @@ describe('POST /users/:userId/address', () => {
 		const savedAddresses = await db.select().from(userAddressTable)
 		expect(savedAddresses).toHaveLength(2)
 
-		const oldAddress = savedAddresses.find((a) => a.street === oldStreet)
-		const newAddress = savedAddresses.find((a) => a.street === newStreet)
+		const savedOldAddress = savedAddresses.find((a) => a.id === oldAddress.id)
+		const savedNewAddress = savedAddresses.find((a) => a.street === newStreet)
 
-		expect(oldAddress?.isDefault).toBe(false)
-		expect(newAddress?.isDefault).toBe(true)
+		expect(savedOldAddress?.isDefault).toBe(false)
+		expect(savedNewAddress?.isDefault).toBe(true)
 	})
 
 	test('should return 404 if user does not exist', async () => {
@@ -125,26 +93,17 @@ describe('POST /users/:userId/address', () => {
 		})
 
 		expect(response.statusCode).toBe(404)
+		
 		const responseData = response.json()
 		expect(responseData.message).toBe('User not found')
 	})
 
 	test('should return 400 if payload is invalid', async () => {
-		const [createdUser] = await db
-			.insert(usersTable)
-			.values({
-				firstName: faker.person.firstName(),
-				lastName: faker.person.lastName(),
-				email: faker.internet.email(),
-				passwordHash: faker.internet.password(),
-				phone: faker.phone.number(),
-				document: '22222222222',
-			})
-			.returning()
+		const user = await makeUser()
 
 		const response = await app.inject({
 			method: 'POST',
-			url: `/users/${createdUser.id}/address`,
+			url: `/users/${user.id}/address`,
 			payload: {},
 		})
 

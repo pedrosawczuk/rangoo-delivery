@@ -2,7 +2,9 @@
 	"name": "@rango/api",
 	"scripts": {
 		"dev": "tsx watch ./src/server.ts",
-		"test": "vitest"
+		"test": "vitest",
+		"test:ui": "vitest --ui",
+		"test:cov": "vitest run --coverage"
 	},
 	"type": "module",
 	"dependencies": {
@@ -17,6 +19,8 @@
 	"devDependencies": {
 		"@faker-js/faker": "^10.5.0",
 		"@types/node": "^26.1.0",
+		"@vitest/coverage-v8": "^4.1.10",
+		"@vitest/ui": "^4.1.10",
 		"tsx": "^4.22.4",
 		"typescript": "^6.0.3",
 		"vitest": "^4.1.10"
