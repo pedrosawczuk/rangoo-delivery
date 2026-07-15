@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { db, restaurantCategoriesTable } from '@rangoo/database'
+import { makeRestaurantCategory } from '@rangoo/database/src/tests/factories/make-restaurant-category'
 import { beforeEach, describe, expect, test } from 'vitest'
 import { app } from '../../../app'
 
@@ -9,16 +10,10 @@ describe('PUT /categories/restaurant/:categoryId', () => {
 	})
 
 	test('should update a category and return status 200', async () => {
-		const [createdCategory] = await db
-			.insert(restaurantCategoriesTable)
-			.values({
-				name: faker.company.name(),
-				slug: faker.helpers.slugify(faker.company.name()).toLowerCase(),
-			})
-			.returning()
+		const createdCategory = await makeRestaurantCategory()
 
-		const newName = 'Pizzaria e Hamburgueria'
-		const expectedName = 'Pizzaria E Hamburgueria'
+		const newName = 'Eletronicos e Tecnologia'
+		const expectedName = 'Eletronicos E Tecnologia'
 
 		const response = await app.inject({
 			method: 'PUT',
@@ -26,14 +21,10 @@ describe('PUT /categories/restaurant/:categoryId', () => {
 			payload: { name: newName },
 		})
 
-		if (response.statusCode !== 200) {
-			console.error(`Debug Error: ${response.json()}`)
-		}
-
 		expect(response.statusCode).toBe(200)
 		const responseData = response.json()
 		expect(responseData.name).toBe(expectedName)
-		expect(responseData.slug).toBe('pizzaria-e-hamburgueria')
+		expect(responseData.slug).toBe('eletronicos-e-tecnologia')
 
 		const savedCategories = await db.select().from(restaurantCategoriesTable)
 		expect(savedCategories).toHaveLength(1)
@@ -41,25 +32,18 @@ describe('PUT /categories/restaurant/:categoryId', () => {
 	})
 
 	test('should return 409 if new slug already exists in another category', async () => {
-		const [, categoryB] = await db
-			.insert(restaurantCategoriesTable)
-			.values([
-				{ name: 'Pizzaria', slug: 'pizzaria' },
-				{ name: 'Gastro Bar', slug: 'gastro-bar' },
-			])
-			.returning()
+		await makeRestaurantCategory({ name: 'Lanches', slug: 'lanches' })
+		const categoryB = await makeRestaurantCategory({ name: 'Bebidas', slug: 'bebidas' })
 
 		const response = await app.inject({
 			method: 'PUT',
 			url: `/categories/restaurant/${categoryB.id}`,
-			payload: { name: 'Pizzaria' },
+			payload: { name: 'Lanches' },
 		})
 
 		expect(response.statusCode).toBe(409)
 		const responseData = response.json()
-		expect(responseData.message).toBe(
-			'Slug already exists for another category',
-		)
+		expect(responseData.message).toBe('Slug already exists for another category')
 	})
 
 	test('should return 404 if category does not exist', async () => {
@@ -68,7 +52,7 @@ describe('PUT /categories/restaurant/:categoryId', () => {
 		const response = await app.inject({
 			method: 'PUT',
 			url: `/categories/restaurant/${fakeId}`,
-			payload: { name: 'Pizzaria' },
+			payload: { name: 'Bebidas' },
 		})
 
 		expect(response.statusCode).toBe(404)
@@ -82,7 +66,7 @@ describe('PUT /categories/restaurant/:categoryId', () => {
 		const response = await app.inject({
 			method: 'PUT',
 			url: `/categories/restaurant/${invalidId}`,
-			payload: { name: 'Pizzaria' },
+			payload: { name: 'Bebidas' },
 		})
 
 		expect(response.statusCode).toBe(400)

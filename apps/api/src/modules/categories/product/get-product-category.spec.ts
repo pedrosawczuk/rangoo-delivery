@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { db, productCategoriesTable } from '@rangoo/database'
+import { makeProductCategory } from '@rangoo/database/src/tests/factories/make-product-category'
 import { beforeEach, describe, expect, test } from 'vitest'
 import { app } from '../../../app'
 
@@ -9,26 +10,12 @@ describe('GET /categories/product/:categoryId', () => {
 	})
 
 	test('should return 200 and the category data', async () => {
-		const [createdCategory] = await db
-			.insert(productCategoriesTable)
-			.values({
-				name: faker.commerce.department(),
-				slug: faker.helpers.slugify(faker.commerce.department()).toLowerCase(),
-			})
-			.returning({
-				id: productCategoriesTable.id,
-				name: productCategoriesTable.name,
-				slug: productCategoriesTable.slug,
-			})
+		const createdCategory = await makeProductCategory()
 
 		const response = await app.inject({
 			method: 'GET',
 			url: `/categories/product/${createdCategory.id}`,
 		})
-
-		if (response.statusCode !== 200) {
-			console.error(`Debug Error: ${response.json()}`)
-		}
 
 		expect(response.statusCode).toBe(200)
 

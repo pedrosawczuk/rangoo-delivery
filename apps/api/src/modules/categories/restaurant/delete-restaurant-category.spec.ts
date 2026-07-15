@@ -1,5 +1,6 @@
 import { faker } from '@faker-js/faker'
 import { db, restaurantCategoriesTable } from '@rangoo/database'
+import { makeRestaurantCategory } from '@rangoo/database/src/tests/factories/make-restaurant-category'
 import { beforeEach, describe, expect, test } from 'vitest'
 import { app } from '../../../app'
 
@@ -9,22 +10,12 @@ describe('DELETE /categories/restaurant/:categoryId', () => {
 	})
 
 	test('should delete a category and return status 204', async () => {
-		const [createdCategory] = await db
-			.insert(restaurantCategoriesTable)
-			.values({
-				name: faker.company.name(),
-				slug: faker.helpers.slugify(faker.company.name()).toLowerCase(),
-			})
-			.returning({ id: restaurantCategoriesTable.id })
+		const createdCategory = await makeRestaurantCategory()
 
 		const response = await app.inject({
 			method: 'DELETE',
 			url: `/categories/restaurant/${createdCategory.id}`,
 		})
-
-		if (response.statusCode !== 204) {
-			console.error(`Debug Error: ${response.json()}`)
-		}
 
 		expect(response.statusCode).toBe(204)
 

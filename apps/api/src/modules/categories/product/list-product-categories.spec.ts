@@ -1,5 +1,5 @@
-import { faker } from '@faker-js/faker'
 import { db, productCategoriesTable } from '@rangoo/database'
+import { makeProductCategory } from '@rangoo/database/src/tests/factories/make-product-category'
 import { beforeEach, describe, expect, test } from 'vitest'
 import { app } from '../../../app'
 
@@ -22,18 +22,10 @@ describe('GET /categories/product', () => {
 	})
 
 	test('should return 200 with a list of categories (default pagination)', async () => {
-		const dataToInsert = [
-			{
-				name: faker.commerce.department(),
-				slug: faker.string.uuid(),
-			},
-			{
-				name: faker.commerce.department(),
-				slug: faker.string.uuid(),
-			},
-		]
-
-		await db.insert(productCategoriesTable).values(dataToInsert)
+		await Promise.all([
+			makeProductCategory(),
+			makeProductCategory(),
+		])
 
 		const response = await app.inject({
 			method: 'GET',
@@ -50,12 +42,9 @@ describe('GET /categories/product', () => {
 	})
 
 	test('should return 200 and respect pagination params', async () => {
-		const dataToInsert = Array.from({ length: 5 }).map(() => ({
-			name: faker.commerce.department(),
-			slug: faker.string.uuid(),
-		}))
-
-		await db.insert(productCategoriesTable).values(dataToInsert)
+		await Promise.all(
+			Array.from({ length: 5 }).map(() => makeProductCategory())
+		)
 
 		const response = await app.inject({
 			method: 'GET',
@@ -67,7 +56,6 @@ describe('GET /categories/product', () => {
 		const responseData = response.json()
 
 		expect(responseData.data).toHaveLength(2)
-
 		expect(responseData.meta.totalCount).toBe(5)
 		expect(responseData.meta.page).toBe(1)
 		expect(responseData.meta.limit).toBe(2)
