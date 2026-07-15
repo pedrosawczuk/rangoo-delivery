@@ -5,8 +5,8 @@ import { paginationQuerySchema } from '../../utils/schemas/pagination-query-sche
 import { restaurantIdSchema } from '../../utils/schemas/restaurant-id-schema'
 import { createRestaurantModule } from './create-restaurant'
 import { createNewRestaurantSchema } from './create-restaurant-schema'
-import { listRestaurantByOwnerModule } from './list-restaurant-by-owner'
 import { getRestaurantByOwnerModule } from './get-restaurant-by-owner'
+import { listRestaurantByOwnerModule } from './list-restaurant-by-owner'
 
 export function restaurantRoutes(app: FastifyInstance) {
 	app.post(
@@ -29,7 +29,6 @@ export function restaurantRoutes(app: FastifyInstance) {
 		{
 			schema: {
 				params: z.intersection(ownerIdSchema, restaurantIdSchema),
-				querystring: paginationQuerySchema,
 			},
 		},
 		getRestaurantByOwnerModule,

@@ -1,19 +1,19 @@
 import { and, db, eq, restaurantTable, usersTable } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import { NotFoundError } from '../../core/errors'
+import type { OwnerIdSchema } from '../../utils/schemas/owner-id-schema'
 import type { RestaurantIdSchema } from '../../utils/schemas/restaurant-id-schema'
-import type { UserIdSchema } from '../../utils/schemas/user-id-schema'
 
 export async function getRestaurantByOwnerModule(
-	request: FastifyRequest<{ Params: UserIdSchema & RestaurantIdSchema }>,
+	request: FastifyRequest<{ Params: OwnerIdSchema & RestaurantIdSchema }>,
 	reply: FastifyReply,
 ) {
-	const { userId, restaurantId } = request.params
+	const { ownerId, restaurantId } = request.params
 
 	const [userExists] = await db
 		.select()
 		.from(usersTable)
-		.where(eq(usersTable.id, userId))
+		.where(eq(usersTable.id, ownerId))
 
 	if (!userExists) throw new NotFoundError('User not Found')
 
@@ -23,7 +23,7 @@ export async function getRestaurantByOwnerModule(
 		.where(
 			and(
 				eq(restaurantTable.id, restaurantId),
-				eq(restaurantTable.ownerId, userId),
+				eq(restaurantTable.ownerId, ownerId),
 			),
 		)
 
