@@ -11,7 +11,9 @@ import { menuRoutes } from './modules/menu/menu-routes'
 import { restaurantRoutes } from './modules/restaurant/restaurant-routes'
 import { userRoutes } from './modules/users/users-routes'
 
-export const app = fastify().withTypeProvider<ZodTypeProvider>()
+export const app = fastify({
+	logger: true,
+}).withTypeProvider<ZodTypeProvider>()
 
 app.setSerializerCompiler(serializerCompiler)
 app.setValidatorCompiler(validatorCompiler)
