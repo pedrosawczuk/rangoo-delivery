@@ -1,13 +1,13 @@
-import { db, restaurantCategoriesTable } from '@rangoo/database'
+import {
+	db,
+	restaurantCategoriesTable,
+	restaurantTable,
+} from '@rangoo/database'
 import { makeRestaurantCategory } from '@rangoo/database/src/tests/factories/make-restaurant-category'
-import { beforeEach, describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { app } from '../../../app'
 
 describe('GET /categories/restaurant', () => {
-	beforeEach(async () => {
-		await db.delete(restaurantCategoriesTable)
-	})
-
 	test('should return 200 with empty list if no categories exist', async () => {
 		const response = await app.inject({
 			method: 'GET',
@@ -22,10 +22,7 @@ describe('GET /categories/restaurant', () => {
 	})
 
 	test('should return 200 with a list of categories (default pagination)', async () => {
-		await Promise.all([
-			makeRestaurantCategory(),
-			makeRestaurantCategory(),
-		])
+		await Promise.all([makeRestaurantCategory(), makeRestaurantCategory()])
 
 		const response = await app.inject({
 			method: 'GET',
@@ -43,7 +40,7 @@ describe('GET /categories/restaurant', () => {
 
 	test('should return 200 and respect pagination params', async () => {
 		await Promise.all(
-			Array.from({ length: 5 }).map(() => makeRestaurantCategory())
+			Array.from({ length: 5 }).map(() => makeRestaurantCategory()),
 		)
 
 		const response = await app.inject({

@@ -1,14 +1,10 @@
 import { faker } from '@faker-js/faker'
-import { db, productCategoriesTable } from '@rangoo/database'
+import { db, productCategoriesTable, productsTable } from '@rangoo/database'
 import { makeProductCategory } from '@rangoo/database/src/tests/factories/make-product-category'
-import { beforeEach, describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { app } from '../../../app'
 
 describe('PUT /categories/product/:categoryId', () => {
-	beforeEach(async () => {
-		await db.delete(productCategoriesTable)
-	})
-
 	test('should update a category and return status 200', async () => {
 		const createdCategory = await makeProductCategory()
 
@@ -33,7 +29,10 @@ describe('PUT /categories/product/:categoryId', () => {
 
 	test('should return 409 if new slug already exists in another category', async () => {
 		await makeProductCategory({ name: 'Lanches', slug: 'lanches' })
-		const categoryB = await makeProductCategory({ name: 'Bebidas', slug: 'bebidas' })
+		const categoryB = await makeProductCategory({
+			name: 'Bebidas',
+			slug: 'bebidas',
+		})
 
 		const response = await app.inject({
 			method: 'PUT',
@@ -43,7 +42,9 @@ describe('PUT /categories/product/:categoryId', () => {
 
 		expect(response.statusCode).toBe(409)
 		const responseData = response.json()
-		expect(responseData.message).toBe('Slug already exists for another category')
+		expect(responseData.message).toBe(
+			'Slug already exists for another category',
+		)
 	})
 
 	test('should return 404 if category does not exist', async () => {

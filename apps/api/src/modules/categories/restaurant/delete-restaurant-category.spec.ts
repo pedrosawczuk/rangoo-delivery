@@ -1,14 +1,14 @@
 import { faker } from '@faker-js/faker'
-import { db, restaurantCategoriesTable } from '@rangoo/database'
+import {
+	db,
+	restaurantCategoriesTable,
+	restaurantTable,
+} from '@rangoo/database'
 import { makeRestaurantCategory } from '@rangoo/database/src/tests/factories/make-restaurant-category'
-import { beforeEach, describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { app } from '../../../app'
 
 describe('DELETE /categories/restaurant/:categoryId', () => {
-	beforeEach(async () => {
-		await db.delete(restaurantCategoriesTable)
-	})
-
 	test('should delete a category and return status 204', async () => {
 		const createdCategory = await makeRestaurantCategory()
 

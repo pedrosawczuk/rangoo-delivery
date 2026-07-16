@@ -1,13 +1,9 @@
-import { db, productCategoriesTable } from '@rangoo/database'
+import { db, productCategoriesTable, productsTable } from '@rangoo/database'
 import { makeProductCategory } from '@rangoo/database/src/tests/factories/make-product-category'
-import { beforeEach, describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { app } from '../../../app'
 
 describe('GET /categories/product', () => {
-	beforeEach(async () => {
-		await db.delete(productCategoriesTable)
-	})
-
 	test('should return 200 with empty list if no categories exist', async () => {
 		const response = await app.inject({
 			method: 'GET',
@@ -22,10 +18,7 @@ describe('GET /categories/product', () => {
 	})
 
 	test('should return 200 with a list of categories (default pagination)', async () => {
-		await Promise.all([
-			makeProductCategory(),
-			makeProductCategory(),
-		])
+		await Promise.all([makeProductCategory(), makeProductCategory()])
 
 		const response = await app.inject({
 			method: 'GET',
@@ -43,7 +36,7 @@ describe('GET /categories/product', () => {
 
 	test('should return 200 and respect pagination params', async () => {
 		await Promise.all(
-			Array.from({ length: 5 }).map(() => makeProductCategory())
+			Array.from({ length: 5 }).map(() => makeProductCategory()),
 		)
 
 		const response = await app.inject({

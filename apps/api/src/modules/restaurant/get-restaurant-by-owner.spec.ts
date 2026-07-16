@@ -1,18 +1,17 @@
 import { faker } from '@faker-js/faker'
-import { db, restaurantCategoriesTable, restaurantTable, usersTable } from '@rangoo/database'
+import {
+	db,
+	restaurantCategoriesTable,
+	restaurantTable,
+	usersTable,
+} from '@rangoo/database'
 import { makeRestaurant } from '@rangoo/database/src/tests/factories/make-restaurant'
 import { makeRestaurantCategory } from '@rangoo/database/src/tests/factories/make-restaurant-category'
 import { makeUser } from '@rangoo/database/src/tests/factories/make-user'
-import { beforeEach, describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { app } from '../../app'
 
 describe('GET /restaurant/owner/:ownerId/:restaurantId', () => {
-	beforeEach(async () => {
-		await db.delete(restaurantTable)
-		await db.delete(restaurantCategoriesTable)
-		await db.delete(usersTable)
-	})
-
 	test('should return 200 and the restaurant data', async () => {
 		const owner = await makeUser()
 		const category = await makeRestaurantCategory()
@@ -81,7 +80,7 @@ describe('GET /restaurant/owner/:ownerId/:restaurantId', () => {
 		})
 
 		expect(response.statusCode).toBe(404)
-		
+
 		const responseData = response.json()
 		expect(responseData.message).toBe('Restaurant Not Exists')
 	})

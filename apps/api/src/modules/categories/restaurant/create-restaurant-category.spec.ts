@@ -1,13 +1,9 @@
 import { faker } from '@faker-js/faker'
 import { db, restaurantCategoriesTable } from '@rangoo/database'
-import { beforeEach, describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { app } from '../../../app'
 
 describe('POST /categories/restaurant', () => {
-	beforeEach(async () => {
-		await db.delete(restaurantCategoriesTable)
-	})
-
 	test('should create a new restaurant category and return status 201', async () => {
 		const requestBody = {
 			name: faker.company.name(),

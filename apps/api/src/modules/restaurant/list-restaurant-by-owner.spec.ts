@@ -1,17 +1,16 @@
-import { db, restaurantCategoriesTable, restaurantTable, usersTable } from '@rangoo/database'
+import {
+	db,
+	restaurantCategoriesTable,
+	restaurantTable,
+	usersTable,
+} from '@rangoo/database'
 import { makeRestaurant } from '@rangoo/database/src/tests/factories/make-restaurant'
 import { makeRestaurantCategory } from '@rangoo/database/src/tests/factories/make-restaurant-category'
 import { makeUser } from '@rangoo/database/src/tests/factories/make-user'
-import { beforeEach, describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { app } from '../../app'
 
 describe('GET /restaurant/owner/:ownerId', () => {
-	beforeEach(async () => {
-		await db.delete(restaurantTable)
-		await db.delete(restaurantCategoriesTable)
-		await db.delete(usersTable)
-	})
-
 	test('should return 200 with empty list if owner has no restaurants', async () => {
 		const owner = await makeUser()
 
@@ -51,10 +50,10 @@ describe('GET /restaurant/owner/:ownerId', () => {
 		const responseData = response.json()
 		expect(responseData.data).toHaveLength(2)
 		expect(responseData.meta.totalCount).toBe(2)
-		
+
 		// Garantindo que todos os itens da lista pertencem ao Dono A
 		const allBelongToOwnerA = responseData.data.every(
-			(rest: any) => rest.ownerId === ownerA.id
+			(rest: any) => rest.ownerId === ownerA.id,
 		)
 		expect(allBelongToOwnerA).toBe(true)
 	})

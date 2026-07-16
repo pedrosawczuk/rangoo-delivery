@@ -2,15 +2,10 @@ import { faker } from '@faker-js/faker'
 import { db, userAddressTable, usersTable } from '@rangoo/database'
 import { makeUser } from '@rangoo/database/src/tests/factories/make-user'
 import { makeUserAddress } from '@rangoo/database/src/tests/factories/make-user-address'
-import { beforeEach, describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { app } from '../../app'
 
 describe('POST /users/:userId/address', () => {
-	beforeEach(async () => {
-		await db.delete(userAddressTable)
-		await db.delete(usersTable)
-	})
-
 	test('should create a new address for the user and return status 201', async () => {
 		const user = await makeUser()
 

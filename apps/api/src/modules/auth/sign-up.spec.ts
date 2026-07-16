@@ -1,13 +1,9 @@
 import { faker } from '@faker-js/faker'
 import { db, usersTable } from '@rangoo/database'
-import { beforeEach, describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { app } from '../../app'
 
 describe('POST /auth/sign-up', () => {
-	beforeEach(async () => {
-		await db.delete(usersTable)
-	})
-
 	test('should create a new user and return status 201', async () => {
 		const requestBody = {
 			firstName: faker.person.firstName(),

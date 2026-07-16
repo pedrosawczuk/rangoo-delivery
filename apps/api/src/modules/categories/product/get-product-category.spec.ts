@@ -1,14 +1,10 @@
 import { faker } from '@faker-js/faker'
-import { db, productCategoriesTable } from '@rangoo/database'
+import { db, productCategoriesTable, productsTable } from '@rangoo/database'
 import { makeProductCategory } from '@rangoo/database/src/tests/factories/make-product-category'
-import { beforeEach, describe, expect, test } from 'vitest'
+import { describe, expect, test } from 'vitest'
 import { app } from '../../../app'
 
 describe('GET /categories/product/:categoryId', () => {
-	beforeEach(async () => {
-		await db.delete(productCategoriesTable)
-	})
-
 	test('should return 200 and the category data', async () => {
 		const createdCategory = await makeProductCategory()
 
