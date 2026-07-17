@@ -32,7 +32,7 @@ describe('GET /menu/:restaurantId/:itemId', () => {
 		})
 
 		expect(response.statusCode).toBe(404)
-		
+
 		const responseData = response.json()
 		expect(responseData.message).toBe('Restaurant Not Found')
 	})
@@ -40,8 +40,10 @@ describe('GET /menu/:restaurantId/:itemId', () => {
 	it('should return 404 if menu item belongs to another restaurant', async () => {
 		const restaurantA = await makeRestaurant()
 		const restaurantB = await makeRestaurant()
-		
-		const itemFromRestaurantB = await makeMenuItem({ restaurantId: restaurantB.id })
+
+		const itemFromRestaurantB = await makeMenuItem({
+			restaurantId: restaurantB.id,
+		})
 
 		const response = await app.inject({
 			method: 'GET',
@@ -49,7 +51,7 @@ describe('GET /menu/:restaurantId/:itemId', () => {
 		})
 
 		expect(response.statusCode).toBe(404)
-		
+
 		const responseData = response.json()
 		expect(responseData.message).toBe('Item Not Found')
 	})
@@ -64,7 +66,7 @@ describe('GET /menu/:restaurantId/:itemId', () => {
 		})
 
 		expect(response.statusCode).toBe(404)
-		
+
 		const responseData = response.json()
 		expect(responseData.message).toBe('Item Not Found')
 	})

@@ -46,7 +46,9 @@ describe('PUT /menu/:restaurantId/:itemId', () => {
 		expect(updatedItem.isAvailable).toBe(requestBody.isAvailable)
 		expect(updatedItem.isVegetarian).toBe(requestBody.isVegetarian)
 		expect(updatedItem.priceInCents).toBe(requestBody.priceInCents)
-		expect(updatedItem.discountPriceInCents).toBe(requestBody.discountPriceInCents)
+		expect(updatedItem.discountPriceInCents).toBe(
+			requestBody.discountPriceInCents,
+		)
 		expect(updatedItem.categoryId).toBe(requestBody.categoryId)
 	})
 
@@ -85,8 +87,10 @@ describe('PUT /menu/:restaurantId/:itemId', () => {
 	it('should return 404 if trying to update an item from another restaurant', async () => {
 		const restaurantA = await makeRestaurant()
 		const restaurantB = await makeRestaurant()
-		
-		const itemFromRestaurantB = await makeMenuItem({ restaurantId: restaurantB.id })
+
+		const itemFromRestaurantB = await makeMenuItem({
+			restaurantId: restaurantB.id,
+		})
 
 		const requestBody = { priceInCents: 100 }
 
