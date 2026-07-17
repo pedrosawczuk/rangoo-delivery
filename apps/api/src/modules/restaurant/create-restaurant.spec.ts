@@ -1,10 +1,5 @@
 import { faker } from '@faker-js/faker'
-import {
-	db,
-	restaurantCategoriesTable,
-	restaurantTable,
-	usersTable,
-} from '@rangoo/database'
+import { db, restaurantTable } from '@rangoo/database'
 import { makeRestaurant } from '@rangoo/database/src/tests/factories/make-restaurant'
 import { makeRestaurantCategory } from '@rangoo/database/src/tests/factories/make-restaurant-category'
 import { makeUser } from '@rangoo/database/src/tests/factories/make-user'
