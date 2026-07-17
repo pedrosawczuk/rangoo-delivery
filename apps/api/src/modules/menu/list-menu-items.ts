@@ -22,14 +22,14 @@ export async function listMenuItemsModule(
 
 	if (!restaurantExists) throw new NotFoundError('Restaurant Not Found')
 
-	const menuItemsPromise = await db
+	const menuItemsPromise = db
 		.select()
 		.from(productsTable)
 		.where(eq(productsTable.restaurantId, restaurantId))
 		.limit(limit)
 		.offset(offset)
 
-	const countMenuItemsPromise = await db
+	const countMenuItemsPromise = db
 		.select({ count: sql<number>`count(*)` })
 		.from(productsTable)
 		.where(eq(productsTable.restaurantId, restaurantId))
