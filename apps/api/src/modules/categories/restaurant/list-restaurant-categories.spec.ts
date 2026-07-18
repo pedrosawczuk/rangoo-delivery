@@ -5,7 +5,7 @@ import {
 } from '@rangoo/database'
 import { makeRestaurantCategory } from '@rangoo/database/src/tests/factories/make-restaurant-category'
 import { describe, expect, test } from 'vitest'
-import { app } from '../../../app'
+import { app } from '@/app'
 
 describe('GET /categories/restaurant', () => {
 	test('should return 200 with empty list if no categories exist', async () => {

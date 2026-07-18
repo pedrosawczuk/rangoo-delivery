@@ -1,8 +1,8 @@
 import { and, db, eq, productsTable, restaurantTable } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { NotFoundError } from '../../core/errors'
-import type { ItemIdSchema } from '../../utils/schemas/item-id-schema'
-import type { RestaurantIdSchema } from '../../utils/schemas/restaurant-id-schema'
+import { NotFoundError } from '@/core/errors'
+import type { ItemIdSchema } from '@/utils/schemas/item-id-schema'
+import type { RestaurantIdSchema } from '@/utils/schemas/restaurant-id-schema'
 
 export async function getMenuItemModule(
 	request: FastifyRequest<{ Params: ItemIdSchema & RestaurantIdSchema }>,

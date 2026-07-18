@@ -1,9 +1,9 @@
 import { and, db, eq, not, restaurantCategoriesTable } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { ConflictError, NotFoundError } from '../../../core/errors'
-import { generateSlug } from '../../../utils/formatters'
-import type { CategoryIdSchema } from '../../../utils/schemas/category-id-schema'
-import type { CreateCategorySchema } from '../../../utils/schemas/create-category-schema'
+import { ConflictError, NotFoundError } from '@/core/errors'
+import { generateSlug } from '@/utils/formatters'
+import type { CategoryIdSchema } from '@/utils/schemas/category-id-schema'
+import type { CreateCategorySchema } from '@/utils/schemas/create-category-schema'
 
 export async function updateRestaurantCategoryModule(
 	request: FastifyRequest<{

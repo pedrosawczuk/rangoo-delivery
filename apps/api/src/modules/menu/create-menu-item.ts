@@ -3,8 +3,8 @@ import { productsTable } from '@rangoo/database/src/schemas/products'
 import { restaurantTable } from '@rangoo/database/src/schemas/restaurant'
 import { eq } from 'drizzle-orm'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { NotFoundError } from '../../core/errors/not-found-error'
-import type { RestaurantIdSchema } from '../../utils/schemas/restaurant-id-schema'
+import { NotFoundError } from '@/core/errors/not-found-error'
+import type { RestaurantIdSchema } from '@/utils/schemas/restaurant-id-schema'
 import type { CreateMenuItemSchema } from './create-menu-item-schema'
 
 export async function createMenuItemModule(

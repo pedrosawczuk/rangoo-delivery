@@ -1,7 +1,7 @@
 import { db, productCategoriesTable, productsTable } from '@rangoo/database'
 import { makeProductCategory } from '@rangoo/database/src/tests/factories/make-product-category'
 import { describe, expect, test } from 'vitest'
-import { app } from '../../../app'
+import { app } from '@/app'
 
 describe('GET /categories/product', () => {
 	test('should return 200 with empty list if no categories exist', async () => {

@@ -7,9 +7,9 @@ import {
 	usersTable,
 } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { NotFoundError } from '../../core/errors'
-import type { RestaurantIdSchema } from '../../utils/schemas/restaurant-id-schema'
-import type { UserIdSchema } from '../../utils/schemas/user-id-schema'
+import { NotFoundError } from '@/core/errors'
+import type { RestaurantIdSchema } from '@/utils/schemas/restaurant-id-schema'
+import type { UserIdSchema } from '@/utils/schemas/user-id-schema'
 
 export async function getRestaurantMemberModule(
 	request: FastifyRequest<{ Params: RestaurantIdSchema & UserIdSchema }>,

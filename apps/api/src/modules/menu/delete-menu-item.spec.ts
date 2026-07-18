@@ -3,7 +3,7 @@ import { db, productsTable } from '@rangoo/database'
 import { makeMenuItem } from '@rangoo/database/src/tests/factories/make-menu-item'
 import { makeRestaurant } from '@rangoo/database/src/tests/factories/make-restaurant'
 import { describe, expect, it } from 'vitest'
-import { app } from '../../app'
+import { app } from '@/app'
 
 describe('DELETE /menu/:restaurantId/:itemId', () => {
 	it('should delete a menu item and return status 204', async () => {

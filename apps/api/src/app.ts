@@ -4,12 +4,12 @@ import {
 	serializerCompiler,
 	validatorCompiler,
 } from 'fastify-type-provider-zod'
-import { AppError } from './core/errors/app-error'
-import { authRoutes } from './modules/auth/auth-routes'
-import { categoriesRoutes } from './modules/categories/categories-routes'
-import { menuRoutes } from './modules/menu/menu-routes'
-import { restaurantRoutes } from './modules/restaurant/restaurant-routes'
-import { userRoutes } from './modules/users/users-routes'
+import { AppError } from '@/core/errors/app-error'
+import { authRoutes } from '@/modules/auth/auth-routes'
+import { categoriesRoutes } from '@/modules/categories/categories-routes'
+import { menuRoutes } from '@/modules/menu/menu-routes'
+import { restaurantRoutes } from '@/modules/restaurant/restaurant-routes'
+import { userRoutes } from '@/modules/users/users-routes'
 
 export const app = fastify({
 	logger: true,
@@ -35,6 +35,8 @@ app.setErrorHandler((error, request, reply) => {
 			code: error.errorCode,
 		})
 	}
+
+
 
 	return reply.send(error)
 })

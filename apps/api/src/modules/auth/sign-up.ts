@@ -1,7 +1,7 @@
 import { db, eq, or, usersTable } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { ConflictError } from '../../core/errors'
-import { hashingPassword } from '../../utils/password'
+import { ConflictError } from '@/core/errors'
+import { hashingPassword } from '@/utils/password'
 import type { SignUpSchema } from './sign-up-schema'
 
 export async function signUpModule(

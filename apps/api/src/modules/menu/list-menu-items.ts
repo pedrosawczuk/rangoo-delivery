@@ -1,8 +1,8 @@
 import { db, eq, productsTable, restaurantTable, sql } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { NotFoundError } from '../../core/errors'
-import type { PaginationQuerySchema } from '../../utils/schemas/pagination-query-schema'
-import type { RestaurantIdSchema } from '../../utils/schemas/restaurant-id-schema'
+import { NotFoundError } from '@/core/errors'
+import type { PaginationQuerySchema } from '@/utils/schemas/pagination-query-schema'
+import type { RestaurantIdSchema } from '@/utils/schemas/restaurant-id-schema'
 export async function listMenuItemsModule(
 	request: FastifyRequest<{
 		Params: RestaurantIdSchema

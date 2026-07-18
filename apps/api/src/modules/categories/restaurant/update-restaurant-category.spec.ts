@@ -6,7 +6,7 @@ import {
 } from '@rangoo/database'
 import { makeRestaurantCategory } from '@rangoo/database/src/tests/factories/make-restaurant-category'
 import { describe, expect, test } from 'vitest'
-import { app } from '../../../app'
+import { app } from '@/app'
 
 describe('PUT /categories/restaurant/:categoryId', () => {
 	test('should update a category and return status 200', async () => {

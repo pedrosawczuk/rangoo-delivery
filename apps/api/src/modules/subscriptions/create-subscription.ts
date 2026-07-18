@@ -1,7 +1,7 @@
 import { db, userSubscriptionsTable } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import type { PlanIdSchema } from '../../utils/schemas/plan-id-schema'
-import type { UserIdSchema } from '../../utils/schemas/user-id-schema'
+import type { PlanIdSchema } from '@/utils/schemas/plan-id-schema'
+import type { UserIdSchema } from '@/utils/schemas/user-id-schema'
 
 export async function createSubscriptionModule(
 	request: FastifyRequest<{ Params: UserIdSchema; Body: PlanIdSchema }>,

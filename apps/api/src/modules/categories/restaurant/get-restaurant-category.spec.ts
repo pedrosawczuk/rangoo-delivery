@@ -6,7 +6,7 @@ import {
 } from '@rangoo/database'
 import { makeRestaurantCategory } from '@rangoo/database/src/tests/factories/make-restaurant-category'
 import { describe, expect, test } from 'vitest'
-import { app } from '../../../app'
+import { app } from '@/app'
 
 describe('GET /categories/restaurant/:categoryId', () => {
 	test('should return 200 and the category data', async () => {
