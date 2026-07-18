@@ -42,6 +42,9 @@ importers:
       '@faker-js/faker':
         specifier: ^10.5.0
         version: 10.5.0
+      '@rangoo/typescript-config':
+        specifier: workspace:*
+        version: link:../../packages/typescript-config
       '@types/node':
         specifier: ^26.1.0
         version: 26.1.1
@@ -101,6 +104,8 @@ importers:
       '@types/node':
         specifier: ^26.1.0
         version: 26.1.1
+
+  packages/typescript-config: {}
 
 packages:
 
