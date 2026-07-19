@@ -37,6 +37,22 @@ app.setErrorHandler((error, request, reply) => {
 	}
 
 
+	const pgError = error as any
+	if (pgError.code === '23505') {
+		return reply.status(409).send({
+			message: 'A unique constraint was violated.',
+			code: 'CONFLICT',
+			detail: pgError.detail,
+		})
+	}
+
+	if (pgError.code === '23503') {
+		return reply.status(400).send({
+			message: 'A foreign key constraint was violated. The referenced record does not exist.',
+			code: 'BAD_REQUEST',
+			detail: pgError.detail,
+		})
+	}
 
 	return reply.send(error)
 })
