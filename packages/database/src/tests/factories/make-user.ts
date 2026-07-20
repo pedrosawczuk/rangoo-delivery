@@ -7,7 +7,7 @@ export async function makeUser(
 	const userData = {
 		firstName: faker.person.firstName(),
 		lastName: faker.person.lastName(),
-		email: faker.internet.email(),
+		email: faker.internet.email().toLowerCase(),
 		passwordHash: faker.internet.password(),
 		phone: faker.phone.number(),
 		document: faker.string.numeric(11),

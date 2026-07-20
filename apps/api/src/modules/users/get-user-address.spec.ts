@@ -43,7 +43,6 @@ describe('GET /users/:userId/address/:addressId', () => {
 		const hacker = await makeUser()
 		const address = await makeUserAddress({ userId: trueOwner.id })
 
-		// O hacker tenta usar o próprio userId para buscar o addressId do dono verdadeiro
 		const response = await app.inject({
 			method: 'GET',
 			url: `/users/${hacker.id}/address/${address.id}`,
