@@ -1,30 +1,51 @@
-import { db, userSubscriptionsTable } from '@rangoo/database'
+import {
+	db,
+	eq,
+	plansTable,
+	userSubscriptionsTable,
+	usersTable,
+} from '@rangoo/database'
+import dayjs from 'dayjs'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import type { PlanIdSchema } from '../../utils/schemas/plan-id-schema'
-import type { UserIdSchema } from '../../utils/schemas/user-id-schema'
+import { NotFoundError } from '../../core/errors'
+import type { CreateSubscriptionSchema } from './create-subscription-schema'
 
 export async function createSubscriptionModule(
-	request: FastifyRequest<{ Params: UserIdSchema; Body: PlanIdSchema }>,
+	request: FastifyRequest<{ Body: CreateSubscriptionSchema }>,
 	reply: FastifyReply,
 ) {
-	const { userId } = request.params
-	const { planId } = request.body
+	const { userId, planId } = request.body
 
-	const CURRENT_PERIOD_START = new Date()
-	const CURRENT_PERIOD_END = new Date()
+	const [user] = await db
+		.select()
+		.from(usersTable)
+		.where(eq(usersTable.id, userId))
 
-	CURRENT_PERIOD_END.setDate(CURRENT_PERIOD_START.getDate() + 30)
+	if (!user) throw new NotFoundError('User not found')
+
+	const [plan] = await db
+		.select()
+		.from(plansTable)
+		.where(eq(plansTable.id, planId))
+
+	if (!plan) throw new NotFoundError('Plan not found')
+
+	const currentPeriodStart = dayjs().toDate()
+	const currentPeriodEnd =
+		plan.billingCycle === 'MONTHLY'
+			? dayjs().add(30, 'day').toDate()
+			: dayjs().add(1, 'year').toDate()
 
 	const [subscription] = await db
 		.insert(userSubscriptionsTable)
 		.values({
 			userId,
-			currentPeriodStart: CURRENT_PERIOD_START,
-			currentPeriodEnd: CURRENT_PERIOD_END,
 			planId,
 			status: 'ACTIVE',
+			currentPeriodStart,
+			currentPeriodEnd,
 		})
-		.returning()
+		.returning({ id: userSubscriptionsTable.id })
 
-	return reply.status(201).send({ data: subscription })
+	return reply.status(201).send({ id: subscription.id })
 }

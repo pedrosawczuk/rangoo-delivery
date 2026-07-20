@@ -8,12 +8,24 @@ import { AppError } from './core/errors/app-error'
 import { authRoutes } from './modules/auth/auth-routes'
 import { categoriesRoutes } from './modules/categories/categories-routes'
 import { menuRoutes } from './modules/menu/menu-routes'
+import { plansRoutes } from './modules/plans/plans-routes'
 import { restaurantRoutes } from './modules/restaurant/restaurant-routes'
+import { subscriptionsRoutes } from './modules/subscriptions/subscriptions-routes'
 import { userRoutes } from './modules/users/users-routes'
+
+import fastifyCookie from '@fastify/cookie'
+import fastifyJwt from '@fastify/jwt'
+import { env } from '@rangoo/env'
 
 export const app = fastify({
 	logger: true,
 }).withTypeProvider<ZodTypeProvider>()
+
+app.register(fastifyJwt, {
+	secret: env.JWT_SECRET,
+})
+
+app.register(fastifyCookie)
 
 app.setSerializerCompiler(serializerCompiler)
 app.setValidatorCompiler(validatorCompiler)
@@ -27,6 +39,10 @@ app.register(categoriesRoutes, { prefix: '/categories' })
 app.register(authRoutes, { prefix: '/auth' })
 
 app.register(userRoutes, { prefix: '/users' })
+
+app.register(plansRoutes, { prefix: '/plans' })
+
+app.register(subscriptionsRoutes, { prefix: '/subscriptions' })
 
 app.setErrorHandler((error, request, reply) => {
 	if (error instanceof AppError) {
