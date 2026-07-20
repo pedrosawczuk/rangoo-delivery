@@ -8,14 +8,26 @@ import { createRestaurantModule } from './create-restaurant'
 import { createRestaurantMemberModule } from './create-restaurant-member'
 import { createRestaurantMemberSchema } from './create-restaurant-member-schema'
 import { createNewRestaurantSchema } from './create-restaurant-schema'
+import { getRestaurantModule } from './get-restaurant'
 import { getRestaurantByOwnerModule } from './get-restaurant-by-owner'
 import { getRestaurantMemberModule } from './get-restaurant-member'
+import { listRestaurantsModule } from './list-restaurants'
 import { listRestaurantByOwnerModule } from './list-restaurant-by-owner'
 import { listRestaurantMembersModule } from './list-restaurant-members'
 import { updateRestaurantMemberModule } from './update-restaurant-member'
 import { updateRestaurantMemberSchema } from './update-restaurant-member-schema'
 
 export function restaurantRoutes(app: FastifyInstance) {
+	app.get(
+		'/',
+		{ schema: { querystring: paginationQuerySchema } },
+		listRestaurantsModule,
+	)
+	app.get(
+		'/:restaurantId',
+		{ schema: { params: restaurantIdSchema } },
+		getRestaurantModule,
+	)
 	app.post(
 		'/',
 		{ schema: { body: createNewRestaurantSchema } },

@@ -1,9 +1,3 @@
-import {
-	db,
-	restaurantCategoriesTable,
-	restaurantTable,
-	usersTable,
-} from '@rangoo/database'
 import { makeRestaurant } from '@rangoo/database/src/tests/factories/make-restaurant'
 import { makeRestaurantCategory } from '@rangoo/database/src/tests/factories/make-restaurant-category'
 import { makeUser } from '@rangoo/database/src/tests/factories/make-user'
@@ -31,13 +25,11 @@ describe('GET /restaurant/owner/:ownerId', () => {
 		const ownerB = await makeUser()
 		const category = await makeRestaurantCategory()
 
-		// Criando 2 restaurantes para o Dono A
 		await Promise.all([
 			makeRestaurant({ ownerId: ownerA.id, categoryId: category.id }),
 			makeRestaurant({ ownerId: ownerA.id, categoryId: category.id }),
 		])
 
-		// Criando 1 restaurante para o Dono B
 		await makeRestaurant({ ownerId: ownerB.id, categoryId: category.id })
 
 		const response = await app.inject({
@@ -51,7 +43,6 @@ describe('GET /restaurant/owner/:ownerId', () => {
 		expect(responseData.data).toHaveLength(2)
 		expect(responseData.meta.totalCount).toBe(2)
 
-		// Garantindo que todos os itens da lista pertencem ao Dono A
 		const allBelongToOwnerA = responseData.data.every(
 			(rest: any) => rest.ownerId === ownerA.id,
 		)
