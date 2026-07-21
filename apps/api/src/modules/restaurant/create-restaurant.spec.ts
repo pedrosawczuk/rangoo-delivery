@@ -1,10 +1,10 @@
+import { app } from '@/app'
 import { faker } from '@faker-js/faker'
 import { db, restaurantTable } from '@rangoo/database'
 import { makeRestaurant } from '@rangoo/database/src/tests/factories/make-restaurant'
 import { makeRestaurantCategory } from '@rangoo/database/src/tests/factories/make-restaurant-category'
 import { makeUser } from '@rangoo/database/src/tests/factories/make-user'
 import { describe, expect, test } from 'vitest'
-import { app } from '../../app'
 
 describe('POST /restaurant', () => {
 	test('should create a new restaurant and return status 201', async () => {
@@ -47,7 +47,7 @@ describe('POST /restaurant', () => {
 		expect(savedRestaurants[0].categoryId).toBe(category.id)
 	})
 
-	test('should return 500 if category does not exist (FK Constraint)', async () => {
+	test('should return 400 if category does not exist (FK Constraint)', async () => {
 		const owner = await makeUser()
 		const fakeCategoryId = faker.string.uuid()
 
@@ -74,7 +74,7 @@ describe('POST /restaurant', () => {
 			payload,
 		})
 
-		expect(response.statusCode).toBe(500)
+		expect(response.statusCode).toBe(400)
 	})
 
 	test('should return 400 if payload is invalid (Zod Validation)', async () => {
@@ -87,7 +87,7 @@ describe('POST /restaurant', () => {
 		expect(response.statusCode).toBe(400)
 	})
 
-	test('should return 500 if document already exists (Unique Constraint)', async () => {
+	test('should return 409 if document already exists (Unique Constraint)', async () => {
 		const owner = await makeUser()
 		const category = await makeRestaurantCategory()
 		const existingRestaurant = await makeRestaurant({
@@ -116,6 +116,6 @@ describe('POST /restaurant', () => {
 			payload,
 		})
 
-		expect(response.statusCode).toBe(500)
+		expect(response.statusCode).toBe(409)
 	})
 })

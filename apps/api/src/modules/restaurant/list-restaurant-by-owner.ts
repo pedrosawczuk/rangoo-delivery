@@ -1,6 +1,6 @@
 import { db, eq, restaurantTable, sql } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import type { PaginationQuerySchema } from '../../utils/schemas/pagination-query-schema'
+import type { PaginationQuerySchema } from '@/utils/schemas/pagination-query-schema'
 import type { ListRestaurantByOwnerSchema } from './list-restaurant-by-owner-schema'
 
 export async function listRestaurantByOwnerModule(

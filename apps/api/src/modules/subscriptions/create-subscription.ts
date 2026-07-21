@@ -7,7 +7,7 @@ import {
 } from '@rangoo/database'
 import dayjs from 'dayjs'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { NotFoundError } from '../../core/errors'
+import { NotFoundError } from '@/core/errors'
 import type { CreateSubscriptionSchema } from './create-subscription-schema'
 
 export async function createSubscriptionModule(

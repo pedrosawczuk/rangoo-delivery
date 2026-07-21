@@ -1,6 +1,6 @@
 import type { FastifyInstance } from 'fastify'
-import { paginationQuerySchema } from '../../utils/schemas/pagination-query-schema'
-import { subscriptionIdSchema } from '../../utils/schemas/subscription-id-schema'
+import { paginationQuerySchema } from '@/utils/schemas/pagination-query-schema'
+import { subscriptionIdSchema } from '@/utils/schemas/subscription-id-schema'
 import { cancelSubscriptionModule } from './cancel-subscription'
 import { createSubscriptionModule } from './create-subscription'
 import { createSubscriptionSchema } from './create-subscription-schema'

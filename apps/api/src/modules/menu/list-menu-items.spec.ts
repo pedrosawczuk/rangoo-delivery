@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker'
 import { makeMenuItem } from '@rangoo/database/src/tests/factories/make-menu-item'
 import { makeRestaurant } from '@rangoo/database/src/tests/factories/make-restaurant'
 import { describe, expect, it } from 'vitest'
-import { app } from '../../app'
+import { app } from '@/app'
 
 describe('GET /menu/:restaurantId', () => {
 	it('should return 200 with empty list if restaurant has no items', async () => {

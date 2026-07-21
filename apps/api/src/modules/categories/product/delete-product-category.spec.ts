@@ -2,7 +2,7 @@ import { faker } from '@faker-js/faker'
 import { db, productCategoriesTable, productsTable } from '@rangoo/database'
 import { makeProductCategory } from '@rangoo/database/src/tests/factories/make-product-category'
 import { describe, expect, test } from 'vitest'
-import { app } from '../../../app'
+import { app } from '@/app'
 
 describe('DELETE /categories/product/:categoryId', () => {
 	test('should delete a category and return status 204', async () => {

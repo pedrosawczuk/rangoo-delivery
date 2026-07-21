@@ -1,7 +1,7 @@
 import { db, eq, restaurantCategoriesTable } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { NotFoundError } from '../../../core/errors'
-import type { CategoryIdSchema } from '../../../utils/schemas/category-id-schema'
+import { NotFoundError } from '@/core/errors'
+import type { CategoryIdSchema } from '@/utils/schemas/category-id-schema'
 
 export async function getRestaurantCategoryModule(
 	request: FastifyRequest<{ Params: CategoryIdSchema }>,

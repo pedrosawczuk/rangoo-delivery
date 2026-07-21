@@ -9,7 +9,7 @@ import { makeRestaurant } from '@rangoo/database/src/tests/factories/make-restau
 import { makeRestaurantCategory } from '@rangoo/database/src/tests/factories/make-restaurant-category'
 import { makeUser } from '@rangoo/database/src/tests/factories/make-user'
 import { describe, expect, test } from 'vitest'
-import { app } from '../../app'
+import { app } from '@/app'
 
 describe('GET /restaurant/owner/:ownerId/:restaurantId', () => {
 	test('should return 200 and the restaurant data', async () => {

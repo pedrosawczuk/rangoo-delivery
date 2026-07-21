@@ -5,7 +5,7 @@ import { makeProductCategory } from '@rangoo/database/src/tests/factories/make-p
 import { makeRestaurant } from '@rangoo/database/src/tests/factories/make-restaurant'
 import { eq } from 'drizzle-orm'
 import { describe, expect, it } from 'vitest'
-import { app } from '../../app'
+import { app } from '@/app'
 
 describe('PUT /menu/:restaurantId/:itemId', () => {
 	it('should update all fields of a menu item and return 200', async () => {

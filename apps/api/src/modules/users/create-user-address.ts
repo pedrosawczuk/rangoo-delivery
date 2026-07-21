@@ -1,7 +1,7 @@
 import { and, db, eq, userAddressTable, usersTable } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { NotFoundError } from '../../core/errors'
-import type { UserIdSchema } from '../../utils/schemas/user-id-schema'
+import { NotFoundError } from '@/core/errors'
+import type { UserIdSchema } from '@/utils/schemas/user-id-schema'
 import type { CreateUserAddressSchema } from './create-user-address-schema'
 
 export async function createUserAddressModule(

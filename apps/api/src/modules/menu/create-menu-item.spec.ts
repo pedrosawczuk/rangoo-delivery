@@ -3,7 +3,7 @@ import { db, productsTable } from '@rangoo/database'
 import { makeProductCategory } from '@rangoo/database/src/tests/factories/make-product-category'
 import { makeRestaurant } from '@rangoo/database/src/tests/factories/make-restaurant'
 import { describe, expect, it } from 'vitest'
-import { app } from '../../app'
+import { app } from '@/app'
 
 describe('POST /menu/:restaurantId', () => {
 	it('should create a new menu item and return status 201', async () => {

@@ -3,7 +3,7 @@ import { db, userAddressTable, usersTable } from '@rangoo/database'
 import { makeUser } from '@rangoo/database/src/tests/factories/make-user'
 import { makeUserAddress } from '@rangoo/database/src/tests/factories/make-user-address'
 import { describe, expect, test } from 'vitest'
-import { app } from '../../app'
+import { app } from '@/app'
 
 describe('DELETE /:userId/address/:addressId', () => {
 	test('should delete a user address and return status 204', async () => {

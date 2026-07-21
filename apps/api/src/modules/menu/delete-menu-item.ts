@@ -2,9 +2,9 @@ import { db } from '@rangoo/database'
 import { productsTable } from '@rangoo/database/src/schemas/products'
 import { and, eq } from 'drizzle-orm'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { NotFoundError } from '../../core/errors/not-found-error'
-import type { ItemIdSchema } from '../../utils/schemas/item-id-schema'
-import type { RestaurantIdSchema } from '../../utils/schemas/restaurant-id-schema'
+import { NotFoundError } from '@/core/errors/not-found-error'
+import type { ItemIdSchema } from '@/utils/schemas/item-id-schema'
+import type { RestaurantIdSchema } from '@/utils/schemas/restaurant-id-schema'
 
 export async function deleteMenuItemModule(
 	request: FastifyRequest<{

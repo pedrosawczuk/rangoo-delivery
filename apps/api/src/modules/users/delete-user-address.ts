@@ -1,9 +1,9 @@
 import { and, db, eq, userAddressTable } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { NotFoundError } from '../../core/errors'
-import { AdressConflictError } from '../../core/errors/address-conflict-error'
-import type { AddressIdSchema } from '../../utils/schemas/address-id-schema'
-import type { UserIdSchema } from '../../utils/schemas/user-id-schema'
+import { NotFoundError } from '@/core/errors'
+import { AdressConflictError } from '@/core/errors/address-conflict-error'
+import type { AddressIdSchema } from '@/utils/schemas/address-id-schema'
+import type { UserIdSchema } from '@/utils/schemas/user-id-schema'
 
 export async function deleteUserAddresModule(
 	request: FastifyRequest<{ Params: UserIdSchema & AddressIdSchema }>,

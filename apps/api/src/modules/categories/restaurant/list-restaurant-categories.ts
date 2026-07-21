@@ -1,6 +1,6 @@
 import { db, restaurantCategoriesTable, sql } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import type { PaginationQuerySchema } from '../../../utils/schemas/pagination-query-schema'
+import type { PaginationQuerySchema } from '@/utils/schemas/pagination-query-schema'
 
 export async function listRestaurantCategoriesModule(
 	request: FastifyRequest<{ Querystring: PaginationQuerySchema }>,

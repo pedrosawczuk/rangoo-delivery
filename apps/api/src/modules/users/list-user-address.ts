@@ -1,8 +1,8 @@
 import { db, eq, sql, userAddressTable, usersTable } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { NotFoundError } from '../../core/errors'
-import type { PaginationQuerySchema } from '../../utils/schemas/pagination-query-schema'
-import type { UserIdSchema } from '../../utils/schemas/user-id-schema'
+import { NotFoundError } from '@/core/errors'
+import type { PaginationQuerySchema } from '@/utils/schemas/pagination-query-schema'
+import type { UserIdSchema } from '@/utils/schemas/user-id-schema'
 
 export async function listUserAddressModule(
 	request: FastifyRequest<{

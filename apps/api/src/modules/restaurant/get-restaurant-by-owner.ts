@@ -1,8 +1,8 @@
 import { and, db, eq, restaurantTable, usersTable } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
-import { NotFoundError } from '../../core/errors'
-import type { OwnerIdSchema } from '../../utils/schemas/owner-id-schema'
-import type { RestaurantIdSchema } from '../../utils/schemas/restaurant-id-schema'
+import { NotFoundError } from '@/core/errors'
+import type { OwnerIdSchema } from '@/utils/schemas/owner-id-schema'
+import type { RestaurantIdSchema } from '@/utils/schemas/restaurant-id-schema'
 
 export async function getRestaurantByOwnerModule(
 	request: FastifyRequest<{ Params: OwnerIdSchema & RestaurantIdSchema }>,

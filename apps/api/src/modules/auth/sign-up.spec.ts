@@ -1,7 +1,7 @@
 import { faker } from '@faker-js/faker'
 import { db, usersTable } from '@rangoo/database'
 import { describe, expect, test } from 'vitest'
-import { app } from '../../app'
+import { app } from '@/app'
 
 describe('POST /auth/sign-up', () => {
 	test('should create a new user and return status 201', async () => {
