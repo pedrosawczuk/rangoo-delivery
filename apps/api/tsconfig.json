@@ -1,5 +1,5 @@
 {
-  "extends": "@rangoo/typescript-config/api.json",
+  "extends": "@rangoo-delivery/typescript-config/tsconfig.json",
   "compilerOptions": {
     "rootDir": "./src",
     "paths": {
