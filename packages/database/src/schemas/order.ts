@@ -4,7 +4,7 @@ import { restaurantTable } from './restaurant'
 import { usersTable } from './users'
 import { userAddressTable } from './users-address'
 
-export const orderStatusEnum = pgEnum('status', [
+export const orderStatusEnum = pgEnum('order_status', [
 	'PENDING_PAYMENT',
 	'PREPARING',
 	'OUT_FOR_DELIVERY',

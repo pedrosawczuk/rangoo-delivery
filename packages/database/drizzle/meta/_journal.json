@@ -92,6 +92,20 @@
       "when": 1784568496311,
       "tag": "0012_hard_queen_noir",
       "breakpoints": true
+    },
+    {
+      "idx": 13,
+      "version": "7",
+      "when": 1784816507668,
+      "tag": "0013_nappy_franklin_richards",
+      "breakpoints": true
+    },
+    {
+      "idx": 14,
+      "version": "7",
+      "when": 1784817616361,
+      "tag": "0014_mean_arclight",
+      "breakpoints": true
     }
   ]
 }

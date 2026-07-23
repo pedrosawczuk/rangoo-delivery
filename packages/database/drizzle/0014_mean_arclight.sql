@@ -1,0 +1,2 @@
+CREATE TYPE "public"."order_status" AS ENUM('PENDING_PAYMENT', 'PREPARING', 'OUT_FOR_DELIVERY', 'DELIVERED', 'CANCELED');--> statement-breakpoint
+ALTER TABLE "orders" ALTER COLUMN "status" SET DATA TYPE "public"."order_status" USING "status"::text::"public"."order_status";
