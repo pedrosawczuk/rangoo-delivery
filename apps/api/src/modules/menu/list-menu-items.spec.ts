@@ -53,7 +53,7 @@ describe('GET /menu/:restaurantId', () => {
 		expect(responseData.meta.totalCount).toBe(2)
 
 		const allBelongToRestaurantA = responseData.data.every(
-			(item: any) => item.restaurantId === restaurantA.id,
+			(item: { restaurantId: string }) => item.restaurantId === restaurantA.id,
 		)
 		expect(allBelongToRestaurantA).toBe(true)
 	})

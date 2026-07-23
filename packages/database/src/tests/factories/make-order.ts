@@ -33,10 +33,7 @@ export async function makeOrder(
 		...override,
 	}
 
-	const [order] = await db
-		.insert(ordersTable)
-		.values(orderData)
-		.returning()
+	const [order] = await db.insert(ordersTable).values(orderData).returning()
 
 	return order
 }

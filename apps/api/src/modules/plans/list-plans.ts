@@ -10,20 +10,13 @@ export async function listPlansModule(
 
 	const offset = (page - 1) * limit
 
-	const dataPromise = db
-		.select()
-		.from(plansTable)
-		.limit(limit)
-		.offset(offset)
+	const dataPromise = db.select().from(plansTable).limit(limit).offset(offset)
 
 	const countPromise = db
 		.select({ count: sql<number>`count(*)` })
 		.from(plansTable)
 
-	const [plans, countResult] = await Promise.all([
-		dataPromise,
-		countPromise,
-	])
+	const [plans, countResult] = await Promise.all([dataPromise, countPromise])
 
 	const totalCount = Number(countResult[0]?.count ?? 0)
 

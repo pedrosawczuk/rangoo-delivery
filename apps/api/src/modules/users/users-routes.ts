@@ -1,16 +1,15 @@
 import type { FastifyInstance } from 'fastify'
 import z from 'zod'
 import { addressIdSchema } from '@/utils/schemas/address-id-schema'
+import { paginationQuerySchema } from '@/utils/schemas/pagination-query-schema'
 import { userIdSchema } from '@/utils/schemas/user-id-schema'
 import { createUserAddressModule } from './create-user-address'
 import { createUserAddressSchema } from './create-user-address-schema'
 import { deleteUserAddresModule } from './delete-user-address'
+import { getUserAddressModule } from './get-user-address'
 import { listUserAddressModule } from './list-user-address'
 import { updateUserAddressModule } from './update-user-address'
 import { updateUserAddressSchema } from './update-user-address-schema'
-import { getUserAddressModule } from './get-user-address'
-
-import { paginationQuerySchema } from '@/utils/schemas/pagination-query-schema'
 
 export function userRoutes(app: FastifyInstance) {
 	app.get(

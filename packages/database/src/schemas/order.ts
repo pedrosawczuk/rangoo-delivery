@@ -12,7 +12,10 @@ export const orderStatusEnum = pgEnum('order_status', [
 	'CANCELED',
 ])
 
-export const deliveryMethodEnum = pgEnum('delivery_method', ['DELIVERY', 'PICKUP'])
+export const deliveryMethodEnum = pgEnum('delivery_method', [
+	'DELIVERY',
+	'PICKUP',
+])
 
 export const ordersTable = pgTable('orders', {
 	id: uuid()

@@ -1,9 +1,4 @@
 import { faker } from '@faker-js/faker'
-import {
-	db,
-	restaurantCategoriesTable,
-	restaurantTable,
-} from '@rangoo/database'
 import { makeRestaurantCategory } from '@rangoo/database/src/tests/factories/make-restaurant-category'
 import { describe, expect, test } from 'vitest'
 import { app } from '@/app'

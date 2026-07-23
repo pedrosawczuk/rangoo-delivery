@@ -1,5 +1,5 @@
 import { faker } from '@faker-js/faker'
-import { db, productCategoriesTable, productsTable } from '@rangoo/database'
+import { db, productCategoriesTable } from '@rangoo/database'
 import { describe, expect, test } from 'vitest'
 import { app } from '@/app'
 

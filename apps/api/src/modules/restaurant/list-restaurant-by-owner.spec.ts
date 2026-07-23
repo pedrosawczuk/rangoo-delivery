@@ -44,7 +44,7 @@ describe('GET /restaurant/owner/:ownerId', () => {
 		expect(responseData.meta.totalCount).toBe(2)
 
 		const allBelongToOwnerA = responseData.data.every(
-			(rest: any) => rest.ownerId === ownerA.id,
+			(rest: { ownerId: string }) => rest.ownerId === ownerA.id,
 		)
 		expect(allBelongToOwnerA).toBe(true)
 	})

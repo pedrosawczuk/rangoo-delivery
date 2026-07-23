@@ -8,7 +8,7 @@ describe('POST /auth/sign-in', () => {
 	it('should authenticate user and return access token + refresh token cookie', async () => {
 		const rawPassword = 'my-super-secret-password'
 		const passwordHash = await hashingPassword(rawPassword)
-		
+
 		const user = await makeUser({ passwordHash })
 
 		const response = await app.inject({

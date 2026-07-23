@@ -1,5 +1,4 @@
 import { faker } from '@faker-js/faker'
-import { db, userAddressTable, usersTable } from '@rangoo/database'
 import { makeUser } from '@rangoo/database/src/tests/factories/make-user'
 import { makeUserAddress } from '@rangoo/database/src/tests/factories/make-user-address'
 import { describe, expect, test } from 'vitest'

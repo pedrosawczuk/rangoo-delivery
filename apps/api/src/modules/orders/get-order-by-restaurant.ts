@@ -1,6 +1,3 @@
-import { NotFoundError } from '@/core/errors'
-import type { OrderIdSchema } from '@/utils/schemas/order-id-schema'
-import type { RestaurantIdSchema } from '@/utils/schemas/restaurant-id-schema'
 import {
 	and,
 	db,
@@ -12,6 +9,9 @@ import {
 	usersTable,
 } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
+import { NotFoundError } from '@/core/errors'
+import type { OrderIdSchema } from '@/utils/schemas/order-id-schema'
+import type { RestaurantIdSchema } from '@/utils/schemas/restaurant-id-schema'
 
 export async function getOrderByRestaurantModule(
 	request: FastifyRequest<{ Params: RestaurantIdSchema & OrderIdSchema }>,

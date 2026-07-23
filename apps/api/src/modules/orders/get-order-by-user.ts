@@ -1,6 +1,3 @@
-import { NotFoundError } from '@/core/errors'
-import type { OrderIdSchema } from '@/utils/schemas/order-id-schema'
-import type { UserIdSchema } from '@/utils/schemas/user-id-schema'
 import {
 	and,
 	db,
@@ -11,6 +8,9 @@ import {
 	userAddressTable,
 } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
+import { NotFoundError } from '@/core/errors'
+import type { OrderIdSchema } from '@/utils/schemas/order-id-schema'
+import type { UserIdSchema } from '@/utils/schemas/user-id-schema'
 
 export async function getOrderByUserModule(
 	request: FastifyRequest<{ Params: UserIdSchema & OrderIdSchema }>,

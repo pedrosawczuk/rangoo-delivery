@@ -1,10 +1,10 @@
-import { app } from '@/app'
 import { faker } from '@faker-js/faker'
 import { db, restaurantTable } from '@rangoo/database'
 import { makeRestaurant } from '@rangoo/database/src/tests/factories/make-restaurant'
 import { makeRestaurantCategory } from '@rangoo/database/src/tests/factories/make-restaurant-category'
 import { makeUser } from '@rangoo/database/src/tests/factories/make-user'
 import { describe, expect, test } from 'vitest'
+import { app } from '@/app'
 
 describe('POST /restaurant', () => {
 	test('should create a new restaurant and return status 201', async () => {

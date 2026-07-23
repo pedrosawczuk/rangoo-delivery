@@ -21,15 +21,18 @@ describe('POST /subscriptions', () => {
 		expect(response.statusCode).toBe(201)
 
 		const responseData = response.json()
-		
+
 		const [subscription] = await db
 			.select()
 			.from(userSubscriptionsTable)
 			.where(eq(userSubscriptionsTable.id, responseData.id))
 
 		expect(subscription.status).toBe('ACTIVE')
-		
-		const diffInDays = dayjs(subscription.currentPeriodEnd).diff(dayjs(subscription.currentPeriodStart), 'day')
+
+		const diffInDays = dayjs(subscription.currentPeriodEnd).diff(
+			dayjs(subscription.currentPeriodStart),
+			'day',
+		)
 		expect(diffInDays).toBe(30)
 	})
 
@@ -46,13 +49,16 @@ describe('POST /subscriptions', () => {
 		expect(response.statusCode).toBe(201)
 
 		const responseData = response.json()
-		
+
 		const [subscription] = await db
 			.select()
 			.from(userSubscriptionsTable)
 			.where(eq(userSubscriptionsTable.id, responseData.id))
 
-		const diffInYears = dayjs(subscription.currentPeriodEnd).diff(dayjs(subscription.currentPeriodStart), 'year')
+		const diffInYears = dayjs(subscription.currentPeriodEnd).diff(
+			dayjs(subscription.currentPeriodStart),
+			'year',
+		)
 		expect(diffInYears).toBe(1)
 	})
 

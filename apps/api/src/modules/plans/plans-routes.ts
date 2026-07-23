@@ -10,29 +10,17 @@ import { updatePlanModule } from './update-plan'
 import { updatePlanSchema } from './update-plan-schema'
 
 export function plansRoutes(app: FastifyInstance) {
-	app.post(
-		'/',
-		{ schema: { body: createPlanSchema } },
-		createPlanModule,
-	)
+	app.post('/', { schema: { body: createPlanSchema } }, createPlanModule)
 	app.get(
 		'/',
 		{ schema: { querystring: paginationQuerySchema } },
 		listPlansModule,
 	)
-	app.get(
-		'/:planId',
-		{ schema: { params: planIdSchema } },
-		getPlanModule,
-	)
+	app.get('/:planId', { schema: { params: planIdSchema } }, getPlanModule)
 	app.put(
 		'/:planId',
 		{ schema: { params: planIdSchema, body: updatePlanSchema } },
 		updatePlanModule,
 	)
-	app.delete(
-		'/:planId',
-		{ schema: { params: planIdSchema } },
-		deletePlanModule,
-	)
+	app.delete('/:planId', { schema: { params: planIdSchema } }, deletePlanModule)
 }

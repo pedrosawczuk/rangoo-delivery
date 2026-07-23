@@ -1,4 +1,3 @@
-import { NotFoundError } from '@/core/errors'
 import {
 	db,
 	eq,
@@ -10,6 +9,7 @@ import {
 	usersTable,
 } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
+import { NotFoundError } from '@/core/errors'
 import type { CreateOrderSchema } from './create-order-schema'
 
 export async function createOrderModule(
@@ -69,11 +69,16 @@ export async function createOrderModule(
 
 		const orderItems = items.map((item) => {
 			const product = products.find((p) => p.id === item.productId)
+
+			if (!product) {
+				throw new NotFoundError(`Product not found: ${item.productId}`)
+			}
+
 			return {
 				orderId: newOrder.id,
 				productId: item.productId,
 				quantity: item.quantity,
-				unitPriceInCents: product!.priceInCents,
+				unitPriceInCents: product.priceInCents,
 			}
 		})
 

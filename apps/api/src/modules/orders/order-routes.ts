@@ -1,8 +1,8 @@
+import type { FastifyInstance } from 'fastify'
+import z from 'zod'
 import { orderIdSchema } from '@/utils/schemas/order-id-schema'
 import { restaurantIdSchema } from '@/utils/schemas/restaurant-id-schema'
 import { userIdSchema } from '@/utils/schemas/user-id-schema'
-import type { FastifyInstance } from 'fastify'
-import z from 'zod'
 import { cancelOrderByUserModule } from './cancel-order-by-user'
 import { createOrderModule } from './create-order'
 import { createOrderSchema } from './create-order-schema'
@@ -18,7 +18,7 @@ export function orderRoutes(app: FastifyInstance) {
 	app.post('/', { schema: { body: createOrderSchema } }, createOrderModule)
 
 	app.get(
-		'/restaurants/:restaurantId/orders',
+		'/restaurants/:restaurantId',
 		{
 			schema: {
 				params: restaurantIdSchema,
@@ -28,7 +28,7 @@ export function orderRoutes(app: FastifyInstance) {
 		listOrderByRestaurantModule,
 	)
 	app.get(
-		'/users/:userId/orders',
+		'/users/:userId',
 		{
 			schema: {
 				params: userIdSchema,
@@ -39,18 +39,18 @@ export function orderRoutes(app: FastifyInstance) {
 	)
 
 	app.get(
-		'/restaurants/:restaurantId/orders/:orderId',
+		'/restaurants/:restaurantId/:orderId',
 		{ schema: { params: z.intersection(restaurantIdSchema, orderIdSchema) } },
 		getOrderByRestaurantModule,
 	)
 	app.get(
-		'/users/:userId/orders/:orderId',
+		'/users/:userId/:orderId',
 		{ schema: { params: z.intersection(userIdSchema, orderIdSchema) } },
 		getOrderByUserModule,
 	)
 
 	app.patch(
-		'/restaurants/:restaurantId/orders/:orderId/status',
+		'/restaurants/:restaurantId/:orderId/status',
 		{
 			schema: {
 				params: z.intersection(restaurantIdSchema, orderIdSchema),
@@ -60,7 +60,7 @@ export function orderRoutes(app: FastifyInstance) {
 		updateOrderStatusModule,
 	)
 	app.patch(
-		'/users/:userId/orders/:orderId/cancel',
+		'/users/:userId/:orderId/cancel',
 		{ schema: { params: z.intersection(userIdSchema, orderIdSchema) } },
 		cancelOrderByUserModule,
 	)

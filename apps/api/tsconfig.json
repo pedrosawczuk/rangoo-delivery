@@ -1,12 +1,12 @@
 {
-  "extends": "@rangoo/typescript-config/api.json",
-  "compilerOptions": {
-    "baseUrl": ".",
-    "rootDir": "./src",
-    "paths": {
-      "@/*": ["./src/*"]
-    }
-  },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules", "dist"]
+	"extends": "@rangoo/typescript-config/api.json",
+	"compilerOptions": {
+		"baseUrl": ".",
+		"rootDir": "./src",
+		"paths": {
+			"@/*": ["./src/*"]
+		}
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "dist"]
 }

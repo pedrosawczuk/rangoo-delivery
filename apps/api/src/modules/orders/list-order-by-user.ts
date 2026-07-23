@@ -1,5 +1,3 @@
-import { NotFoundError } from '@/core/errors'
-import type { UserIdSchema } from '@/utils/schemas/user-id-schema'
 import {
 	and,
 	db,
@@ -12,6 +10,8 @@ import {
 	usersTable,
 } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
+import { NotFoundError } from '@/core/errors'
+import type { UserIdSchema } from '@/utils/schemas/user-id-schema'
 import type { ListOrderQuerySchema } from './list-order-query-schema'
 
 export async function listOrderByUserModule(

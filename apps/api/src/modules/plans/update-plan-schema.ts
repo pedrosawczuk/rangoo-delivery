@@ -1,4 +1,4 @@
-import { z } from 'zod'
+import type { z } from 'zod'
 import { createPlanSchema } from './create-plan-schema'
 
 export const updatePlanSchema = createPlanSchema.partial()

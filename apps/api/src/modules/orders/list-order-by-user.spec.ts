@@ -1,6 +1,6 @@
 import { faker } from '@faker-js/faker'
-import { makeOrderItem } from '@rangoo/database/src/tests/factories/make-order-item'
 import { makeOrder } from '@rangoo/database/src/tests/factories/make-order'
+import { makeOrderItem } from '@rangoo/database/src/tests/factories/make-order-item'
 import { makeUser } from '@rangoo/database/src/tests/factories/make-user'
 import { describe, expect, it } from 'vitest'
 import { app } from '../../app'
@@ -31,9 +31,9 @@ describe('GET /users/:userId/orders', () => {
 		expect(responseData.meta.limit).toBe(2)
 
 		const returnedOrderWithItems = responseData.data.find(
-			(o: any) => o.id === orders[0].id,
+			(o: { id: string }) => o.id === orders[0].id,
 		)
-		
+
 		if (returnedOrderWithItems) {
 			expect(returnedOrderWithItems.items).toBeDefined()
 			expect(returnedOrderWithItems.items).toHaveLength(2)
@@ -41,7 +41,7 @@ describe('GET /users/:userId/orders', () => {
 				expect.arrayContaining([
 					expect.objectContaining({ id: orderItem1.id }),
 					expect.objectContaining({ id: orderItem2.id }),
-				])
+				]),
 			)
 		}
 	})
@@ -64,7 +64,7 @@ describe('GET /users/:userId/orders', () => {
 		expect(responseData.data).toHaveLength(2)
 		expect(responseData.meta.totalCount).toBe(2)
 
-		responseData.data.forEach((order: any) => {
+		responseData.data.forEach((order: { status: string }) => {
 			expect(order.status).toBe('PREPARING')
 		})
 	})

@@ -1,5 +1,5 @@
-import { db, sql, pool } from '@rangoo/database'
-import { beforeEach, beforeAll, afterAll } from 'vitest'
+import { db, pool, sql } from '@rangoo/database'
+import { afterAll, beforeAll, beforeEach } from 'vitest'
 import { app } from '../app'
 
 beforeAll(async () => {

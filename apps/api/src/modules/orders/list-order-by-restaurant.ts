@@ -1,5 +1,3 @@
-import { NotFoundError } from '@/core/errors'
-import type { RestaurantIdSchema } from '@/utils/schemas/restaurant-id-schema'
 import {
 	and,
 	db,
@@ -12,6 +10,8 @@ import {
 	sql,
 } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
+import { NotFoundError } from '@/core/errors'
+import type { RestaurantIdSchema } from '@/utils/schemas/restaurant-id-schema'
 import type { ListOrderQuerySchema } from './list-order-query-schema'
 
 export async function listOrderByRestaurantModule(
@@ -38,7 +38,7 @@ export async function listOrderByRestaurantModule(
 		? and(
 				eq(ordersTable.restaurantId, restaurantId),
 				eq(ordersTable.status, status),
-		  )
+			)
 		: eq(ordersTable.restaurantId, restaurantId)
 
 	const dataPromise = db
