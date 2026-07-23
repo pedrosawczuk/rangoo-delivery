@@ -1,7 +1,7 @@
 {
 	"name": "@rango/api",
 	"scripts": {
-		"dev": "tsx watch ./src/server.ts",
+		"dev": "tsx watch --tsconfig tsconfig.json ./src/server.ts",
 		"test": "vitest",
 		"test:ui": "vitest --ui",
 		"test:cov": "vitest run --coverage"
