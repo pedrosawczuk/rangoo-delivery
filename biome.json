@@ -31,5 +31,24 @@
 				"organizeImports": "on"
 			}
 		}
-	}
+	},
+	"css": {
+		"parser": {
+			"cssModules": false,
+			"allowWrongLineComments": false
+		},
+		"linter": {
+			"enabled": true
+		}
+	},
+	"overrides": [
+		{
+			"includes": ["apps/web/src/index.css"],
+			"css": {
+				"parser": {
+					"tailwindDirectives": true
+				}
+			}
+		}
+	]
 }

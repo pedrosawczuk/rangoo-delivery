@@ -144,3 +144,5 @@ vite.config.ts.timestamp-*
 
 # Turbo 
 .turbo/
+*storybook.log
+storybook-static
