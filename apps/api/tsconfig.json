@@ -1,6 +1,7 @@
 {
 	"extends": "@rangoo/typescript-config/api.json",
 	"compilerOptions": {
+		"ignoreDeprecations": "6.0",
 		"baseUrl": ".",
 		"rootDir": "./src",
 		"paths": {

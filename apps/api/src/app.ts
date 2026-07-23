@@ -44,7 +44,7 @@ app.register(plansRoutes, { prefix: '/plans' })
 
 app.register(subscriptionsRoutes, { prefix: '/subscriptions' })
 
-app.register(orderRoutes, { prefix: '/orders' })
+app.register(orderRoutes, { prefix: '/order' })
 
 app.setErrorHandler((error, _request, reply) => {
 	if (error instanceof AppError) {
@@ -54,7 +54,7 @@ app.setErrorHandler((error, _request, reply) => {
 		})
 	}
 
-	// biome-ignore lint/suspicious/noExplicitAny: Error object is heavily dynamic during debugging
+	// biome-ignore lint/suspicious/noExplicitAny: error object extraction
 	let pgError = error as any
 
 	if (pgError.constructor.name.includes('Drizzle') && pgError.cause) {
