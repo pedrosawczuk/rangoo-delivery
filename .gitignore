@@ -146,3 +146,6 @@ vite.config.ts.timestamp-*
 .turbo/
 *storybook.log
 storybook-static
+
+# IA
+.skills/
