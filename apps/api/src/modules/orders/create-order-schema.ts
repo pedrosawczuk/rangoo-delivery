@@ -1,7 +1,7 @@
 import z from 'zod'
 
 export const createOrderSchema = z.object({
-	productId: z.uuid(),
+
 	restaurantId: z.uuid(),
 	deliveryAddressId: z.uuid().optional(),
 	userId: z.uuid(),

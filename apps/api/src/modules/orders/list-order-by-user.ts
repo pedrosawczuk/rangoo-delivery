@@ -1,5 +1,5 @@
 import { NotFoundError } from '@/core/errors'
-import type { RestaurantIdSchema } from '@/utils/schemas/restaurant-id-schema'
+import type { UserIdSchema } from '@/utils/schemas/user-id-schema'
 import {
 	and,
 	db,
@@ -8,38 +8,35 @@ import {
 	inArray,
 	orderItemsTable,
 	ordersTable,
-	restaurantTable,
 	sql,
+	usersTable,
 } from '@rangoo/database'
 import type { FastifyReply, FastifyRequest } from 'fastify'
 import type { ListOrderQuerySchema } from './list-order-query-schema'
 
-export async function listOrderByRestaurantModule(
+export async function listOrderByUserModule(
 	request: FastifyRequest<{
-		Params: RestaurantIdSchema
+		Params: UserIdSchema
 		Querystring: ListOrderQuerySchema
 	}>,
 	reply: FastifyReply,
 ) {
-	const { restaurantId } = request.params
+	const { userId } = request.params
 	const { page, limit, status } = request.query
 	const offset = (page - 1) * limit
 
-	const [restaurant] = await db
+	const [user] = await db
 		.select()
-		.from(restaurantTable)
-		.where(eq(restaurantTable.id, restaurantId))
+		.from(usersTable)
+		.where(eq(usersTable.id, userId))
 
-	if (!restaurant) {
-		throw new NotFoundError('Restaurant not found')
+	if (!user) {
+		throw new NotFoundError('User not found')
 	}
 
 	const baseCondition = status
-		? and(
-				eq(ordersTable.restaurantId, restaurantId),
-				eq(ordersTable.status, status),
-		  )
-		: eq(ordersTable.restaurantId, restaurantId)
+		? and(eq(ordersTable.userId, userId), eq(ordersTable.status, status))
+		: eq(ordersTable.userId, userId)
 
 	const dataPromise = db
 		.select()
@@ -54,14 +51,14 @@ export async function listOrderByRestaurantModule(
 		.from(ordersTable)
 		.where(baseCondition)
 
-	const [restaurantOrders, countResult] = await Promise.all([
+	const [userOrders, countResult] = await Promise.all([
 		dataPromise,
 		countPromise,
 	])
 
 	const totalCount = Number(countResult[0]?.count ?? 0)
 
-	if (restaurantOrders.length === 0) {
+	if (userOrders.length === 0) {
 		return reply.status(200).send({
 			data: [],
 			meta: {
@@ -73,14 +70,14 @@ export async function listOrderByRestaurantModule(
 		})
 	}
 
-	const ordersId = restaurantOrders.map((order) => order.id)
+	const ordersId = userOrders.map((order) => order.id)
 
 	const orderItems = await db
 		.select()
 		.from(orderItemsTable)
 		.where(inArray(orderItemsTable.orderId, ordersId))
 
-	const orders = restaurantOrders.map((order) => {
+	const orders = userOrders.map((order) => {
 		return {
 			...order,
 			items: orderItems.filter((item) => item.orderId === order.id),

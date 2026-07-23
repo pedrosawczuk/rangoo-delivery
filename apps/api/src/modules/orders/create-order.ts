@@ -36,10 +36,10 @@ export async function createOrderModule(
 			: null,
 	])
 
-	if (!user) {
+	if (user.length === 0) {
 		throw new NotFoundError('User not exists')
 	}
-	if (deliveryAddressId && !address) {
+	if (deliveryAddressId && address && address.length === 0) {
 		throw new NotFoundError('Address not exists')
 	}
 
