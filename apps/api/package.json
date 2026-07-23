@@ -9,6 +9,7 @@
 	"type": "module",
 	"dependencies": {
 		"@fastify/cookie": "^11.1.2",
+		"@fastify/cors": "^11.3.0",
 		"@fastify/jwt": "^10.2.0",
 		"@rangoo/database": "workspace:*",
 		"@rangoo/env": "workspace:*",

@@ -1,12 +1,3 @@
-import fastifyCookie from '@fastify/cookie'
-import fastifyJwt from '@fastify/jwt'
-import { env } from '@rangoo/env'
-import { fastify } from 'fastify'
-import type { ZodTypeProvider } from 'fastify-type-provider-zod'
-import {
-	serializerCompiler,
-	validatorCompiler,
-} from 'fastify-type-provider-zod'
 import { AppError } from '@/core/errors/app-error'
 import { authRoutes } from '@/modules/auth/auth-routes'
 import { categoriesRoutes } from '@/modules/categories/categories-routes'
@@ -16,6 +7,16 @@ import { plansRoutes } from '@/modules/plans/plans-routes'
 import { restaurantRoutes } from '@/modules/restaurant/restaurant-routes'
 import { subscriptionsRoutes } from '@/modules/subscriptions/subscriptions-routes'
 import { userRoutes } from '@/modules/users/users-routes'
+import { fastifyCookie } from '@fastify/cookie'
+import { fastifyCors } from '@fastify/cors'
+import { fastifyJwt } from '@fastify/jwt'
+import { env } from '@rangoo/env'
+import { fastify } from 'fastify'
+import type { ZodTypeProvider } from 'fastify-type-provider-zod'
+import {
+	serializerCompiler,
+	validatorCompiler,
+} from 'fastify-type-provider-zod'
 
 export const app = fastify({
 	logger: true,
@@ -23,6 +24,11 @@ export const app = fastify({
 
 app.register(fastifyJwt, {
 	secret: env.JWT_SECRET,
+})
+
+app.register(fastifyCors, {
+	origin: env.NODE_ENV === 'dev' ? true : env.CORS_SITE_ENABLED,
+	credentials: true,
 })
 
 app.register(fastifyCookie)
@@ -54,16 +60,11 @@ app.setErrorHandler((error, _request, reply) => {
 		})
 	}
 
-	// biome-ignore lint/suspicious/noExplicitAny: error object extraction
 	let pgError = error as any
 
 	if (pgError.constructor.name.includes('Drizzle') && pgError.cause) {
 		pgError = pgError.cause
 	}
-
-	console.log('--- ERROR HANDLER DUMP ---')
-	console.log('Final Error instance:', pgError.constructor.name)
-	console.log('Final Error code:', pgError.code)
 
 	if (pgError.code === '23505') {
 		return reply.status(409).send({
@@ -82,7 +83,15 @@ app.setErrorHandler((error, _request, reply) => {
 		})
 	}
 
-	return reply.send(error)
+	console.error('🔥 [Unhandled Error]:', error)
+	if (pgError && pgError.message) {
+		console.error('Detalhes do erro do banco:', pgError.message)
+	}
+
+	return reply.status(500).send({
+		message: 'Internal Server Error',
+		detail: pgError?.message || error.message,
+	})
 })
 
 app.get('/', () => 'Hello World')

@@ -1,6 +1,6 @@
+import dotenv from 'dotenv'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import dotenv from 'dotenv'
 import { z } from 'zod'
 
 const __filename = fileURLToPath(import.meta.url)
@@ -15,6 +15,7 @@ const envSchema = z.object({
 	DATABASE_URL: z.string(),
 	TEST_DATABASE_URL: z.string(),
 	JWT_SECRET: z.string().min(1),
+	CORS_SITE_ENABLED: z.url()
 })
 
 export const env = envSchema.parse(process.env)
