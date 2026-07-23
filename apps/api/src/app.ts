@@ -12,6 +12,7 @@ import { plansRoutes } from '@/modules/plans/plans-routes'
 import { restaurantRoutes } from '@/modules/restaurant/restaurant-routes'
 import { subscriptionsRoutes } from '@/modules/subscriptions/subscriptions-routes'
 import { userRoutes } from '@/modules/users/users-routes'
+import { orderRoutes } from '@/modules/orders/order-routes'
 
 import fastifyCookie from '@fastify/cookie'
 import fastifyJwt from '@fastify/jwt'
@@ -44,6 +45,8 @@ app.register(plansRoutes, { prefix: '/plans' })
 
 app.register(subscriptionsRoutes, { prefix: '/subscriptions' })
 
+app.register(orderRoutes, {prefix: 'order'})
+
 app.setErrorHandler((error, request, reply) => {
 	if (error instanceof AppError) {
 		return reply.status(error.statusCode).send({
@@ -53,7 +56,16 @@ app.setErrorHandler((error, request, reply) => {
 	}
 
 
-	const pgError = error as any
+	let pgError = error as any
+	
+	if (pgError.constructor.name.includes('Drizzle') && pgError.cause) {
+		pgError = pgError.cause
+	}
+	
+	console.log('--- ERROR HANDLER DUMP ---')
+	console.log('Final Error instance:', pgError.constructor.name)
+	console.log('Final Error code:', pgError.code)
+	
 	if (pgError.code === '23505') {
 		return reply.status(409).send({
 			message: 'A unique constraint was violated.',
