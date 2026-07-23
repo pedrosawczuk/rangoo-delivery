@@ -1,28 +1,8 @@
-import { Button, Input } from '@rangoo/ui'
-import { ArrowRight, Lock, Mail, User, UtensilsCrossed, Phone, IdCard } from 'lucide-react'
+import { ArrowRight, UtensilsCrossed } from 'lucide-react'
 import { Link } from 'react-router-dom'
-import * as React from 'react'
+import { SignUpForm } from '@/features/auth/sign-up-form'
 
 export function Register() {
-	const [phone, setPhone] = React.useState('')
-	const [document, setDocument] = React.useState('')
-
-	const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		let value = e.target.value.replace(/\D/g, '')
-		if (value.length > 11) value = value.slice(0, 11)
-		value = value.replace(/^(\d{2})(\d)/g, '($1) $2')
-		value = value.replace(/(\d)(\d{4})$/, '$1-$2')
-		setPhone(value)
-	}
-
-	const handleDocumentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-		let value = e.target.value.replace(/\D/g, '')
-		if (value.length > 11) value = value.slice(0, 11)
-		value = value.replace(/(\d{3})(\d)/, '$1.$2')
-		value = value.replace(/(\d{3})(\d)/, '$1.$2')
-		value = value.replace(/(\d{3})(\d{1,2})$/, '$1-$2')
-		setDocument(value)
-	}
 	return (
 		<div className="flex min-h-screen w-full flex-col md:flex-row-reverse bg-white text-slate-900 font-sans selection:bg-primary-light selection:text-primary">
 			<div className="flex flex-col justify-between bg-primary p-8 md:w-[45%] md:p-16 lg:p-24 relative overflow-hidden shrink-0">
@@ -68,133 +48,15 @@ export function Register() {
 						</p>
 					</div>
 
-					<form className="flex flex-col gap-5">
-						<div className="flex flex-col sm:flex-row gap-5">
-							<div className="flex flex-1 flex-col gap-2">
-								<label
-									htmlFor="firstName"
-									className="text-sm font-semibold text-slate-900"
-								>
-									First Name
-								</label>
-								<Input
-									id="firstName"
-									type="text"
-									placeholder="John"
-									startIcon={User}
-									required
-									className="h-12 bg-white"
-								/>
-							</div>
-							<div className="flex flex-1 flex-col gap-2">
-								<label
-									htmlFor="lastName"
-									className="text-sm font-semibold text-slate-900"
-								>
-									Last Name
-								</label>
-								<Input
-									id="lastName"
-									type="text"
-									placeholder="Doe"
-									startIcon={User}
-									required
-									className="h-12 bg-white"
-								/>
-							</div>
-						</div>
-
-						<div className="flex flex-col gap-2">
-							<label
-								htmlFor="email"
-								className="text-sm font-semibold text-slate-900"
-							>
-								Email address
-							</label>
-							<Input
-								id="email"
-								type="email"
-								placeholder="name@example.com"
-								startIcon={Mail}
-								required
-								className="h-12 bg-white"
-							/>
-						</div>
-
-						<div className="flex flex-col sm:flex-row gap-5">
-							<div className="flex flex-1 flex-col gap-2">
-								<label htmlFor="phone" className="text-sm font-semibold text-slate-900">
-									Phone Number
-								</label>
-								<Input
-									id="phone"
-									type="tel"
-									placeholder="(55) 55555-5555"
-									startIcon={Phone}
-									required
-									className="h-12 bg-white"
-									value={phone}
-									onChange={handlePhoneChange}
-								/>
-							</div>
-							<div className="flex flex-1 flex-col gap-2">
-								<label htmlFor="document" className="text-sm font-semibold text-slate-900">
-									Document
-								</label>
-								<Input
-									id="document"
-									type="text"
-									placeholder="000.000.000-00"
-									startIcon={IdCard}
-									required
-									className="h-12 bg-white"
-									value={document}
-									onChange={handleDocumentChange}
-								/>
-							</div>
-						</div>
-
-						<div className="flex flex-col gap-2">
-							<label
-								htmlFor="password"
-								className="text-sm font-semibold text-slate-900"
-							>
-								Password
-							</label>
-							<Input
-								id="password"
-								type="password"
-								placeholder="Create a strong password"
-								startIcon={Lock}
-								required
-								className="h-12 bg-white"
-							/>
-							<p className="text-xs text-slate-500 mt-1">
-								Must be at least 8 characters long.
-							</p>
-						</div>
-
-						<Button
-							type="submit"
-							className="w-full h-14 mt-4 text-base font-semibold shadow-lg shadow-orange-600/20"
-						>
-							Create Account
-						</Button>
-					</form>
+					<SignUpForm />
 
 					<p className="px-8 text-center text-sm text-slate-500 mt-8">
 						By clicking continue, you agree to our{' '}
-						<Link
-							to="/terms"
-							className="underline underline-offset-4 hover:text-primary"
-						>
+						<Link to="/terms" className="underline underline-offset-4 hover:text-primary">
 							Terms of Service
 						</Link>{' '}
 						and{' '}
-						<Link
-							to="/privacy"
-							className="underline underline-offset-4 hover:text-primary"
-						>
+						<Link to="/privacy" className="underline underline-offset-4 hover:text-primary">
 							Privacy Policy
 						</Link>
 						.
