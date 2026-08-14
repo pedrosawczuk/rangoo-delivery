@@ -1,8 +1,8 @@
+"use client"
 import { X } from 'lucide-react'
 import * as React from 'react'
 import { cn } from '../lib/utils'
 
-// --- Context ---
 interface DialogContextValue {
 	open: boolean
 	onOpenChange: (open: boolean) => void
@@ -33,7 +33,10 @@ export function Dialog({
 	const [uncontrolledOpen, setUncontrolledOpen] = React.useState(false)
 	const isControlled = controlledOpen !== undefined
 	const open = isControlled ? controlledOpen : uncontrolledOpen
-	const onOpenChange = isControlled ? setControlledOpen! : setUncontrolledOpen
+	const onOpenChange = (newOpen: boolean) => {
+		if (!isControlled) setUncontrolledOpen(newOpen)
+		setControlledOpen?.(newOpen)
+	}
 
 	return (
 		<DialogContext.Provider value={{ open, onOpenChange }}>
@@ -55,16 +58,20 @@ export function DialogTrigger({
 		return React.cloneElement(children as React.ReactElement, {
 			// @ts-expect-error - bypassing strict type for generic click
 			onClick: (e: React.MouseEvent) => {
-				children.props.onClick?.(e)
+				;(children.props as { onClick?: React.MouseEventHandler }).onClick?.(e)
 				onOpenChange(true)
 			},
 		})
 	}
 
 	return (
-		<div onClick={() => onOpenChange(true)} className="inline-block">
+		<button
+			type="button"
+			onClick={() => onOpenChange(true)}
+			className="inline-block"
+		>
 			{children}
-		</div>
+		</button>
 	)
 }
 
@@ -74,7 +81,7 @@ export interface DialogContentProps
 export const DialogContent = React.forwardRef<
 	HTMLDialogElement,
 	DialogContentProps
->(({ className, children, ...props }, ref) => {
+>(({ className, children, onClose, onClick, ...props }, ref) => {
 	const { open, onOpenChange } = useDialog()
 	const internalRef = React.useRef<HTMLDialogElement>(null)
 	const dialogRef = (ref as React.RefObject<HTMLDialogElement>) || internalRef
@@ -90,11 +97,11 @@ export const DialogContent = React.forwardRef<
 	}, [open, dialogRef])
 
 	const handleClose = React.useCallback(
-		(e: React.SyntheticEvent) => {
+		(e: React.SyntheticEvent<HTMLDialogElement, Event>) => {
 			onOpenChange(false)
-			props.onClose?.(e)
+			onClose?.(e)
 		},
-		[onOpenChange, props],
+		[onOpenChange, onClose],
 	)
 
 	const handleBackdropClick = React.useCallback(
@@ -102,12 +109,13 @@ export const DialogContent = React.forwardRef<
 			if (e.target === dialogRef.current) {
 				onOpenChange(false)
 			}
-			props.onClick?.(e)
+			onClick?.(e)
 		},
-		[onOpenChange, dialogRef, props],
+		[onOpenChange, dialogRef, onClick],
 	)
 
 	return (
+		// biome-ignore lint/a11y/useKeyWithClickEvents: dialog backdrop uses onClick
 		<dialog
 			ref={dialogRef}
 			onClose={handleClose}
@@ -122,6 +130,7 @@ export const DialogContent = React.forwardRef<
 		>
 			{children}
 			<button
+				type="button"
 				onClick={() => onOpenChange(false)}
 				className="absolute right-4 top-4 rounded-full p-1 opacity-70 ring-offset-white transition-opacity hover:opacity-100 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 disabled:pointer-events-none"
 			>
@@ -182,3 +191,4 @@ export const DialogDescription = ({
 	<p className={cn('text-sm text-slate-500', className)} {...props} />
 )
 DialogDescription.displayName = 'DialogDescription'
+

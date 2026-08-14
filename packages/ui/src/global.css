@@ -1,8 +1,18 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: var(--color-orange-600);
-  --color-primary-foreground: var(--color-white);
-  --color-primary-hover: var(--color-orange-700);
-  --color-primary-light: var(--color-orange-100);
+  --color-primary: #E63946;
+  --color-primary-foreground: #FFFFFF;
+  --color-primary-hover: #D62828;
+  --color-primary-light: #FDF0F0;
+  --color-border: #E5D5C5;
+  --color-background: #FFFBF7;
+  --color-foreground: #2A1A14;
+}
+
+@layer base {
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+  }
 }

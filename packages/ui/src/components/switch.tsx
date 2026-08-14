@@ -1,3 +1,4 @@
+"use client"
 import { cva, type VariantProps } from 'class-variance-authority'
 import * as React from 'react'
 import { cn } from '../lib/utils'
@@ -68,3 +69,4 @@ const Switch = React.forwardRef<HTMLInputElement, SwitchProps>(
 Switch.displayName = 'Switch'
 
 export { Switch }
+

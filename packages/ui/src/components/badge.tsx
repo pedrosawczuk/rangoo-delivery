@@ -1,3 +1,4 @@
+"use client"
 import { cva, type VariantProps } from 'class-variance-authority'
 import type * as React from 'react'
 import { cn } from '../lib/utils'
@@ -31,3 +32,4 @@ function Badge({ className, variant, ...props }: BadgeProps) {
 }
 
 export { Badge }
+

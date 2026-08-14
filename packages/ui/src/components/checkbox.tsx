@@ -1,3 +1,4 @@
+"use client"
 import { cva, type VariantProps } from 'class-variance-authority'
 import { Check } from 'lucide-react'
 import * as React from 'react'
@@ -66,3 +67,4 @@ const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
 Checkbox.displayName = 'Checkbox'
 
 export { Checkbox }
+

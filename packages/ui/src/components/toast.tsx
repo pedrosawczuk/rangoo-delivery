@@ -1,3 +1,4 @@
+"use client"
 import { cva, type VariantProps } from 'class-variance-authority'
 import { AlertCircle, CheckCircle2, X } from 'lucide-react'
 import * as React from 'react'
@@ -110,3 +111,4 @@ function Toaster() {
 		</div>
 	)
 }
+

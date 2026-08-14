@@ -1,16 +1,17 @@
+"use client"
 import { cva, type VariantProps } from 'class-variance-authority'
 import type { LucideIcon } from 'lucide-react'
 import * as React from 'react'
 import { cn } from '../lib/utils'
 
 export const inputWrapperVariants = cva(
-	'flex items-center h-11 w-full rounded-full border bg-white px-4 text-sm transition-colors focus-within:ring-2 focus-within:ring-offset-2 overflow-hidden',
+	'flex items-center h-12 w-full rounded-xl border border-[#E5D5C5] bg-white px-4 text-sm transition-all focus-within:ring-2 focus-within:ring-primary/20 focus-within:border-primary overflow-hidden shadow-sm',
 	{
 		variants: {
 			variant: {
-				default: 'border-slate-300 focus-within:ring-primary',
-				error: 'border-red-500 focus-within:ring-red-500',
-				success: 'border-green-500 focus-within:ring-green-500',
+				default: '',
+				error: 'border-red-500 focus-within:ring-red-500/20 focus-within:border-red-500',
+				success: 'border-green-500 focus-within:ring-green-500/20 focus-within:border-green-500',
 			},
 			disabled: {
 				true: 'opacity-50 cursor-not-allowed bg-slate-50',
@@ -100,3 +101,4 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 Input.displayName = 'Input'
 
 export { Input }
+
