@@ -1,12 +1,3 @@
-import { AppError } from '@/core/errors/app-error'
-import { authRoutes } from '@/modules/auth/auth-routes'
-import { categoriesRoutes } from '@/modules/categories/categories-routes'
-import { menuRoutes } from '@/modules/menu/menu-routes'
-import { orderRoutes } from '@/modules/orders/order-routes'
-import { plansRoutes } from '@/modules/plans/plans-routes'
-import { restaurantRoutes } from '@/modules/restaurant/restaurant-routes'
-import { subscriptionsRoutes } from '@/modules/subscriptions/subscriptions-routes'
-import { userRoutes } from '@/modules/users/users-routes'
 import { fastifyCookie } from '@fastify/cookie'
 import { fastifyCors } from '@fastify/cors'
 import { fastifyJwt } from '@fastify/jwt'
@@ -17,6 +8,15 @@ import {
 	serializerCompiler,
 	validatorCompiler,
 } from 'fastify-type-provider-zod'
+import { AppError } from '@/core/errors/app-error'
+import { authRoutes } from '@/modules/auth/auth-routes'
+import { categoriesRoutes } from '@/modules/categories/categories-routes'
+import { menuRoutes } from '@/modules/menu/menu-routes'
+import { orderRoutes } from '@/modules/orders/order-routes'
+import { plansRoutes } from '@/modules/plans/plans-routes'
+import { restaurantRoutes } from '@/modules/restaurant/restaurant-routes'
+import { subscriptionsRoutes } from '@/modules/subscriptions/subscriptions-routes'
+import { userRoutes } from '@/modules/users/users-routes'
 
 export const app = fastify({
 	logger: true,
@@ -60,13 +60,21 @@ app.setErrorHandler((error, _request, reply) => {
 		})
 	}
 
-	let pgError = error as any
-
-	if (pgError.constructor.name.includes('Drizzle') && pgError.cause) {
-		pgError = pgError.cause
+	type DatabaseError = {
+		constructor?: { name?: string }
+		cause?: unknown
+		code?: string
+		detail?: string
+		message?: string
 	}
 
-	if (pgError.code === '23505') {
+	let pgError = error as DatabaseError
+
+	if (pgError?.constructor?.name?.includes('Drizzle') && pgError.cause) {
+		pgError = pgError.cause as DatabaseError
+	}
+
+	if (pgError?.code === '23505') {
 		return reply.status(409).send({
 			message: 'A unique constraint was violated.',
 			code: 'CONFLICT',
@@ -74,7 +82,7 @@ app.setErrorHandler((error, _request, reply) => {
 		})
 	}
 
-	if (pgError.code === '23503') {
+	if (pgError?.code === '23503') {
 		return reply.status(400).send({
 			message:
 				'A foreign key constraint was violated. The referenced record does not exist.',
@@ -84,13 +92,13 @@ app.setErrorHandler((error, _request, reply) => {
 	}
 
 	console.error('🔥 [Unhandled Error]:', error)
-	if (pgError && pgError.message) {
+	if (pgError?.message) {
 		console.error('Detalhes do erro do banco:', pgError.message)
 	}
 
 	return reply.status(500).send({
 		message: 'Internal Server Error',
-		detail: pgError?.message || error.message,
+		detail: pgError?.message || (error instanceof Error ? error.message : 'Unknown error'),
 	})
 })
 
