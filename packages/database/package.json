@@ -10,6 +10,7 @@
 	},
 	"dependencies": {
 		"@rangoo/env": "workspace:*",
+		"argon2": "^0.44.0",
 		"dayjs": "^1.11.21",
 		"drizzle-orm": "^0.45.2",
 		"pg": "^8.22.0",
@@ -19,6 +20,6 @@
 		"@faker-js/faker": "^10.5.0",
 		"@types/pg": "^8.20.0",
 		"drizzle-kit": "^0.31.10",
-		"tsx": "^4.22.4"
+		"tsx": "^4.23.0"
 	}
 }

@@ -1,12 +1,12 @@
-import { env } from '@rangoo/env'
 import { defineConfig } from 'drizzle-kit'
+import { databaseUrl } from './src/database-url'
 
 export default defineConfig({
 	out: './drizzle',
 	schema: './src/schemas/index.ts',
 	dialect: 'postgresql',
 	dbCredentials: {
-		url: env.NODE_ENV === 'test' ? env.TEST_DATABASE_URL : env.DATABASE_URL,
+		url: databaseUrl,
 	},
 	verbose: true,
 })

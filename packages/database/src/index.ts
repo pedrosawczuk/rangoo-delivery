@@ -1,11 +1,10 @@
-import { env } from '@rangoo/env'
 import { drizzle } from 'drizzle-orm/node-postgres'
 import * as pg from 'pg'
+import { databaseUrl } from './database-url'
 import * as schema from './schemas/index'
 
 export const pool = new pg.Pool({
-	connectionString:
-		env.NODE_ENV === 'test' ? env.TEST_DATABASE_URL : env.DATABASE_URL,
+	connectionString: databaseUrl,
 })
 
 export const db = drizzle(pool, { schema, logger: true })
